@@ -26,10 +26,9 @@
                         <h4>Module Management</h4>
                         <div class="col-sm-12 mb-4">
                             <button class="btn btn-sm btn-primary float-end" id="btn_add"
-                             data-bs-toggle="modal"
-                            data-bs-target="#modal"
-                            
-                            >Create Module</button>
+                                data-bs-toggle="modal"
+                                onclick="triggerLivewireEvent()"
+                                data-bs-target="#modal">Create Module</button>
                         </div>
 
                         <livewire:components.modules-card />
@@ -48,7 +47,7 @@
 
     <!-- Modal component -->
     <x-modal id="modal" title="Module">
-        <livewire:forms.moduleform  />
+        <livewire:forms.moduleform />
     </x-modal>
 
     <x-modal id="delete_modal" title="Prompt">
@@ -57,12 +56,17 @@
 </body>
 @include('core.core_js')
 
+
 <script>
-    $('#btn_add').on('click', function(e) {
-        Livewire.emit('myEvent'); 
-    })
-    
+    function triggerLivewireEvent() {
+        Livewire.dispatch('show-modal', {
+            id: null,
+            action: 'Add'
+        });
+    }
 </script>
+
+
 @livewireScripts
 
 @scripts

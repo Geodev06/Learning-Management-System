@@ -19,6 +19,9 @@ class Moduleform extends Component
     public $id;
 
  
+    protected $listeners = ['eventName' => 'handleEvent'];
+
+
 
     #[On('show-modal')]
     public function show_modal($id, $action)
@@ -35,6 +38,10 @@ class Moduleform extends Component
             $this->v_flag = $module->v_flag == 1 ? TRUE : FALSE;
             $this->k_flag = $module->k_flag == 1 ? TRUE : FALSE;
             $this->r_flag = $module->r_flag == 1 ? TRUE : FALSE;
+        }
+        if($action == 'Add') {
+
+           $this->reset();
         }
 
     }
