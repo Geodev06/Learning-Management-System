@@ -6,10 +6,10 @@
             </button>
         </div>
         <div>
-            <a class="navbar-brand brand-logo" href="{{ route('login')}} " wire:navigate>
+            <a class="navbar-brand brand-logo" href=" {{ route('dashboard')}} " wire:navigate>
                 <p>LMSse</p>
             </a>
-            <a class="navbar-brand brand-logo-mini" href="index.html">
+            <a class="navbar-brand brand-logo-mini" href=" {{ route('dashboard') }}">
                 <img src="assets/images/logo-mini.svg" alt="logo" />
             </a>
         </div>

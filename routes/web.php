@@ -23,4 +23,6 @@ Route::controller(GuestController::class)->group(function () {
 
 Route::controller(PageController::class)->middleware('auth')->group(function () {
     Route::get('/dashboard', 'dashboard')->name('dashboard');
+    Route::get('/modules', 'modules')->name('modules');
+
 });

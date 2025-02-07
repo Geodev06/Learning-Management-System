@@ -10,4 +10,9 @@ class PageController extends Controller
     {
         return view('pages.dashboard');
     }
+
+    public function modules()
+    {
+        return view('pages.modules');
+    }
 }
