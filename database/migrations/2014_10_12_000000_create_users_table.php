@@ -26,6 +26,8 @@ return new class extends Migration
             $table->text('profile')->nullable();
             $table->string('org_code', 255)->nullable();
             $table->integer('login_attempt')->default(3);
+            $table->integer('first_login')->default(1);
+            $table->enum('learning_modality',['A','V','K','R'])->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

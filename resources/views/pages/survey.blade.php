@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Learn</title>
     @include('core.core_css')
 
     @livewireStyles
@@ -23,15 +23,9 @@
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="row">
+                        <h4>Survey Form</h4>
+                        <livewire:components.survey_form />
 
-                        @if(Auth::user()->role == 'ADMIN')
-                        @include('partials.admin_dashboard')
-                        @endif
-
-                        @if(Auth::user()->role == 'STUDENT')
-                        @include('partials.student_dashboard')
-                        
-                        @endif
                     </div>
                 </div>
                 <!-- content-wrapper ends -->
@@ -43,9 +37,14 @@
         </div>
         <!-- page-body-wrapper ends -->
     </div>
+
+
 </body>
 @include('core.core_js')
+
+
 @livewireScripts
 
+@scripts
 
 </html>

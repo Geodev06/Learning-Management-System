@@ -30389,3 +30389,10 @@ dl li {
 .cursor-pointer {
   cursor: pointer;
 }
+
+.card-dash {
+  background-image: url('../images/undraw_road-to-knowledge_f9zn.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+}

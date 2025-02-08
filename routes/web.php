@@ -3,6 +3,8 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SurveyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +24,16 @@ Route::controller(GuestController::class)->group(function () {
 });
 
 Route::controller(PageController::class)->middleware('auth')->group(function () {
-    Route::get('/dashboard', 'dashboard')->name('dashboard');
+    Route::get('/dashboard', 'dashboard')->name('dashboard','fl');
     Route::get('/modules', 'modules')->name('modules');
+});
+
+Route::controller(StudentController::class)->middleware('auth','fl')->group(function () {
+    Route::get('/learn', 'learn')->name('learn');
+});
+
+Route::controller(SurveyController::class)->middleware('auth')->group(function () {
+    Route::get('/survey', 'survey')->name('survey');
+    Route::get('/get_pre_assessment', 'get_pre_assessment')->name('get_pre_assessment');
 
 });

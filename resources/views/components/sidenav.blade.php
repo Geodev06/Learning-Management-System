@@ -6,6 +6,7 @@
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
+        @if(Auth::user()->role == 'ADMIN')
         <li class="nav-item nav-category">Core</li>
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
@@ -36,7 +37,27 @@
                 </ul>
             </div>
         </li>
-       
+
+        @endif
+
+        @if(Auth::user()->role == 'STUDENT')
+        <li class="nav-item nav-category">Explore</li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <i class="menu-icon mdi mdi-floor-plan"></i>
+                <span class="menu-title">Learn</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('learn') }}">Learning Modules</a></li>
+                </ul>
+            </div>
+        </li>
+        @endif
+
+
+
         <li class="nav-item">
             <a class="nav-link" href="docs/documentation.html">
                 <i class="menu-icon mdi mdi-file-document"></i>
@@ -45,4 +66,3 @@
         </li>
     </ul>
 </nav>
-
