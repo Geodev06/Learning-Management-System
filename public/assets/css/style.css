@@ -26071,7 +26071,7 @@ select.form-select {
   outline: 1px solid #dee2e6;
   color: #c9c8c8;
   appearance: none;
-  background: url("../../images/arrow-down.svg");
+  background: url("../images/arrow-down.svg");
   background-repeat: no-repeat;
   background-position: 99% center;
 }
@@ -30388,6 +30388,14 @@ dl li {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.card.cursor-pointer:hover {
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Add a shadow effect */
+  cursor: pointer;
+  transition: all 0.3s;
+  background-color: #1F3BB3;
+  color:white;
 }
 
 .card-dash {

@@ -33,8 +33,73 @@ class SurveyForm extends Component
 
     public function submit()
     {
-        $this->validate_question();
+        
 
+        if ($this->question_1_K == NULL and $this->question_1_V == NULL and $this->question_1_A == NULL and $this->question_1_R == NULL) {
+            session()->flash('error', 'Please select atleast 1 answer for question no. 1.');
+            return;
+        }
+        if ($this->question_2_K == NULL and $this->question_2_V == NULL and $this->question_2_A == NULL and $this->question_2_R == NULL) {
+            session()->flash('error', 'Please select atleast 1 answer for question no. 2.');
+            return;
+        }
+        if ($this->question_3_K == NULL and $this->question_3_V == NULL and $this->question_3_A == NULL and $this->question_3_R == NULL) {
+            session()->flash('error', 'Please select atleast 1 answer for question no. 3.');
+            return;
+        }
+        if ($this->question_4_K == NULL and $this->question_4_V == NULL and $this->question_4_A == NULL and $this->question_4_R == NULL) {
+            session()->flash('error', 'Please select atleast 1 answer for question no. 4.');
+            return;
+        }
+        if ($this->question_5_K == NULL and $this->question_5_V == NULL and $this->question_5_A == NULL and $this->question_5_R == NULL) {
+            session()->flash('error', 'Please select atleast 1 answer for question no. 5.');
+            return;
+        }
+        if ($this->question_6_K == NULL and $this->question_6_V == NULL and $this->question_6_A == NULL and $this->question_6_R == NULL) {
+            session()->flash('error', 'Please select atleast 1 answer for question no. 6.');
+            return;
+        }
+        if ($this->question_7_K == NULL and $this->question_7_V == NULL and $this->question_7_A == NULL and $this->question_7_R == NULL) {
+            session()->flash('error', 'Please select atleast 1 answer for question no. 7.');
+            return;
+        }
+        if ($this->question_8_K == NULL and $this->question_8_V == NULL and $this->question_8_A == NULL and $this->question_8_R == NULL) {
+            session()->flash('error', 'Please select atleast 1 answer for question no. 8.');
+            return;
+        }
+        if ($this->question_9_K == NULL and $this->question_9_V == NULL and $this->question_9_A == NULL and $this->question_9_R == NULL) {
+            session()->flash('error', 'Please select atleast 1 answer for question no. 9.');
+            return;
+        }
+        if ($this->question_10_K == NULL and $this->question_10_V == NULL and $this->question_10_A == NULL and $this->question_10_R == NULL) {
+            session()->flash('error', 'Please select atleast 1 answer for question no. 10.');
+            return;
+        }
+        if ($this->question_11_K == NULL and $this->question_11_V == NULL and $this->question_11_A == NULL and $this->question_11_R == NULL) {
+            session()->flash('error', 'Please select atleast 1 answer for question no. 11.');
+            return;
+        }
+        if ($this->question_12_K == NULL and $this->question_12_V == NULL and $this->question_12_A == NULL and $this->question_12_R == NULL) {
+            session()->flash('error', 'Please select atleast 1 answer for question no. 12.');
+            return;
+        }
+        if ($this->question_13_K == NULL and $this->question_13_V == NULL and $this->question_13_A == NULL and $this->question_13_R == NULL) {
+            session()->flash('error', 'Please select atleast 1 answer for question no. 13.');
+            return;
+        }
+        if ($this->question_14_K == NULL and $this->question_14_V == NULL and $this->question_14_A == NULL and $this->question_14_R == NULL) {
+            session()->flash('error', 'Please select atleast 1 answer for question no. 14.');
+            return;
+        }
+        if ($this->question_15_K == NULL and $this->question_15_V == NULL and $this->question_15_A == NULL and $this->question_15_R == NULL) {
+            session()->flash('error', 'Please select atleast 1 answer for question no. 15.');
+            return;
+        }
+        if ($this->question_16_K == NULL and $this->question_16_V == NULL and $this->question_16_A == NULL and $this->question_16_R == NULL) {
+            session()->flash('error', 'Please select atleast 1 answer for question no. 15.');
+            return;
+        }
+        
         $answers = $this->get_survey_answer();
         
         try {

@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Module;
+use App\Models\ModuleLesson;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -18,7 +19,7 @@ class Moduleform extends Component
 
     public $id;
 
- 
+
     protected $listeners = ['eventName' => 'handleEvent'];
 
 
@@ -26,7 +27,7 @@ class Moduleform extends Component
     #[On('show-modal')]
     public function show_modal($id, $action)
     {
-        if ($id AND $action == 'Edit') {
+        if ($id and $action == 'Edit') {
 
             $this->id = $id;
 
@@ -39,20 +40,19 @@ class Moduleform extends Component
             $this->k_flag = $module->k_flag == 1 ? TRUE : FALSE;
             $this->r_flag = $module->r_flag == 1 ? TRUE : FALSE;
         }
-        if($action == 'Add') {
+        if ($action == 'Add') {
 
-           $this->reset();
+            $this->reset();
         }
-
     }
     public function mount($action = 'Add')
     {
-        if($action == 'Add') {
+        if ($action == 'Add') {
             $this->reset();
         }
     }
 
-   
+
 
     public function submit($post_flag)
     {
@@ -85,6 +85,24 @@ class Moduleform extends Component
                 $module->created_by = Auth::user()->id;
                 $module->save();
 
+                $module_id = $module->id;
+
+                if ($post_flag == 'Y') {
+                    if ($module_id) {
+
+                        for ($i = 1; $i <= $this->no_of_lessons; $i++) {
+
+                            $lesson = [
+                                'lesson_no' => $i,
+                                'module_id' => $module_id,
+                                'title' => 'Lesson no. '. $i,
+                            ];
+
+                            ModuleLesson::create($lesson);
+                        }
+                    }
+                }
+
                 $this->dispatch('close_modal', [
                     'title' => 'Success',
                     'message' => $this->lang['record_saved'],
@@ -108,6 +126,23 @@ class Moduleform extends Component
                 $module->post_flag = $post_flag;
                 $module->save();
 
+                $module_id = $this->id;
+
+                if ($post_flag == 'Y') {
+                    if ($module_id) {
+
+                        for ($i = 1; $i <= $this->no_of_lessons; $i++) {
+
+                            $lesson = [
+                                'lesson_no' => $i,
+                                'title' => 'Lesson no. '. $i,
+                                'module_id' => $module_id
+                            ];
+
+                            ModuleLesson::create($lesson);
+                        }
+                    }
+                }
                 $this->dispatch('close_modal', [
                     'title' => 'Success',
                     'message' => $this->lang['record_updated'],

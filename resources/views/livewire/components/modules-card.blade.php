@@ -9,7 +9,9 @@
                     <h4>{{ $module->title }}</h4>
                     <div class="d-flex justify-content-between">
                         @if($module->post_flag == 'Y')
-                        <i class="fa fa-folder text-primary cursor-pointer" data-bs-toggle="tooltip" title="Manage"></i>
+                        <i class="fa fa-folder text-primary cursor-pointer"
+                        wire:click="$dispatch('manage', { id: '{{ base64_encode($module->id) }}' })"
+                         data-bs-toggle="tooltip" title="Manage"></i>
                         @else
                         <i class="fa fa-pencil text-primary mx-2 cursor-pointer"
                          wire:click="$dispatch('show-modal', { id: {{ $module->id }}, action : 'Edit' })"

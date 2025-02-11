@@ -10,7 +10,7 @@
                 <p>LMSse</p>
             </a>
             <a class="navbar-brand brand-logo-mini" href=" {{ route('dashboard') }}">
-                <img src="assets/images/logo-mini.svg" alt="logo" />
+                <img src="{{ asset('assets/images/logo-mini.svg') }}"  alt="logo" />
             </a>
         </div>
     </div>
@@ -120,7 +120,7 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item preview-item">
                         <div class="preview-thumbnail">
-                            <img src="assets/images/faces/face10.jpg" alt="image" class="img-sm profile-pic">
+                            <img src="{{ asset('assets/images/faces/face10.jpg') }}" alt="image" class="img-sm profile-pic">
                         </div>
                         <div class="preview-item-content flex-grow py-2">
                             <p class="preview-subject ellipsis fw-medium text-dark">Marian Garner </p>
@@ -129,7 +129,7 @@
                     </a>
                     <a class="dropdown-item preview-item">
                         <div class="preview-thumbnail">
-                            <img src="assets/images/faces/face12.jpg" alt="image" class="img-sm profile-pic">
+                            <img src="{{ asset('assets/images/faces/face12.jpg') }}" alt="image" class="img-sm profile-pic">
                         </div>
                         <div class="preview-item-content flex-grow py-2">
                             <p class="preview-subject ellipsis fw-medium text-dark">David Grey </p>
@@ -138,7 +138,7 @@
                     </a>
                     <a class="dropdown-item preview-item">
                         <div class="preview-thumbnail">
-                            <img src="assets/images/faces/face1.jpg" alt="image" class="img-sm profile-pic">
+                            <img src="{{ asset('assets/images/faces/face1.jpg') }}" alt="image" class="img-sm profile-pic">
                         </div>
                         <div class="preview-item-content flex-grow py-2">
                             <p class="preview-subject ellipsis fw-medium text-dark">Travis Jenkins </p>

@@ -40,7 +40,7 @@
                                 class="btn btn-rounded btn-primary"
                                 wire:click="submit"
                                 wire:loading.attr="disabled">
-                                <span wire:loading.remove>Sign up</span>
+                                <span wire:loading.remove>Sign In</span>
                                 <span wire:loading>
                                     <i class="fa fa-spinner fa-spin"></i> Loading...
                                 </span>

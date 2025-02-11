@@ -12,6 +12,12 @@ class ModulesCard extends Component
 {
     use WithPagination;
 
+    #[On('manage')]
+    public function manage($id)
+    {
+        return redirect()->route('module_lessons', [$id]);
+    }
+    
     #[On('list-refresh')]
     public function render()
     {
