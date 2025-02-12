@@ -58,8 +58,6 @@
                                             <div class="col-lg-12">
                                                 <livewire:components.filecards lesson_id="{{ $lesson->id }} " />
                                             </div>
-                                       
-                                            
 
                                         </div>
 
@@ -92,7 +90,7 @@
                     <input type="hidden" name="lesson_id" value="{{ base64_encode($lesson->id) }}">
                     <label for="SELECT_TYPE">Attachment Type</label>
                     <select class="form-select form-select-sm" name="file_type" id="SELECT_TYPE">
-                        <option value="PDF">PDF <i class="fas fa-pdf"></i></option>
+                        <option value="PDF">PDF</option>
                         <option value="LINK">LINK</option>
                         <option value="PPT">PPT</option>
                         <option value="OTHER">OTHER</option>
@@ -133,33 +131,38 @@
         // Triggered when the select option changes
         $('#SELECT_TYPE').change(function() {
             var selectedType = $(this).val();
-            if (selectedType === 'PDF') {
-                $('.file-input').attr('accept', '.pdf')
-            } else {
-                $('.file-input').removeAttr('accept')
 
+            // Handle the file input's accept attribute based on the selected type
+            if (selectedType === 'PDF') {
+                $('.file-input').attr('accept', '.pdf'); // Accept only PDF files
+            } else if (selectedType === 'OTHER') {
+                $('.file-input').removeAttr('accept'); // Remove file type restrictions for 'OTHER'
+            } else {
+                $('.file-input').removeAttr('accept'); // Remove file type restrictions for other types
             }
-            // If PDF or OTHER is selected, show the file input
+
+            // Show/hide the file input and text input based on the selected type
             if (selectedType === 'PDF' || selectedType === 'OTHER') {
                 $('.file-input').show(); // Show file input
                 $('.text-input').hide(); // Hide text input
-
-
             } else {
                 $('.file-input').hide(); // Hide file input
                 $('.text-input').show(); // Show text input
             }
-            if (selectedType === 'PPT') {
-                $('.ppt-label').show()
-            } else {
-                $('.ppt-label').hide()
 
+            // Show/hide PPT label based on selected type
+            if (selectedType === 'PPT') {
+                $('.ppt-label').show();
+            } else {
+                $('.ppt-label').hide();
             }
+
         });
 
-   
+        // Trigger change on page load to apply initial state
         $('#SELECT_TYPE').trigger('change');
 
+        // Handle form submission for file upload
         $('#file-upload-form').on('submit', function(e) {
             e.preventDefault(); // Prevent the default form submission
 
@@ -169,7 +172,7 @@
             var formData = new FormData(this);
 
             $.ajax({
-                url: '/upload', // Replace this with the appropriate route in your Laravel app
+                url: '/upload', // Replace with the correct route in your Laravel app
                 type: 'POST',
                 data: formData,
                 contentType: false, // Important for file uploads
@@ -183,21 +186,29 @@
                             text: 'Attachment has been saved.',
                             icon: 'success'
                         }).then(() => {
-                            window.location.reload()
+                            window.location.reload();
                         });
-
-
                     }
-
                 },
                 error: function(xhr, status, error) {
-                    $('.ERROR').text(xhr.responseJSON.message)
+                    $('.ERROR').text(xhr.responseJSON.message);
+                    if (xhr.status == 413) {
+                        $('.ERROR').text(error + " Max. of 10MB.");
+                    }
+                    if (xhr.status == 400) {
+                        $('.ERROR').text(error + 'File maybe corrupted.');
+                    }
+
+                    console.log(xhr)
                 }
             });
         });
 
+       
+
     });
 </script>
+
 
 
 </html>

@@ -47,6 +47,43 @@
 
             @endforelse
         </div>
+
+
+        <x-modal id="modal_preview" size="modal-lg" title="Preview">
+            <div class="content">
+            </div>
+        </x-modal>
+
+        @script
+        <script>
+            $wire.on('render-file', (payload) => {
+
+                switch (payload.type) {
+                    case 'PDF':
+                        $('.content').html(`
+                            <embed src="{{ asset('${payload.payload}') }}" width="100%" height="720" type="application/pdf" id="pdf_viewer">
+                        `)
+                        break;
+                    case 'PPT':
+
+                        $('.content').html(payload.payload)
+                        // Get the iframe element
+                        var iframe = document.querySelector('iframe');
+                        iframe.height = "720"
+                        iframe.width = "100%"
+                        break;
+                    case 'OTHER':
+
+                        $('.content').html('Preview Not available yet.')
+                        break;
+                    case 'LINK':
+                        $('.content').html('Preview Not available yet.')
+
+                        break;
+                }
+                $('#modal_preview').modal('show')
+            })
+        </script>
+        @endscript
     </div>
-   
 </div>

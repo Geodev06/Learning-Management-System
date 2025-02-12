@@ -1,5 +1,5 @@
 <div class="modal fade" id="{{ $id }}" tabindex="-1" aria-labelledby="{{ $id }}Label" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog {{ $size ?? '' }}">
         <div class="modal-content">
             <div class="modal-header mb-0">
                 <h5 class="modal-title" id="{{ $id }}Label">{{ $title ?? 'Modal Title' }}</h5>

@@ -9,15 +9,15 @@ use Illuminate\View\Component;
 class Modal extends Component
 {
 
-    public $id, $title;
+    public $id, $title, $size;
     /**
      * Create a new component instance.
      */
-    public function __construct($id, $title)
+    public function __construct($id, $title, $size = NULL)
     {
         $this->id = $id;
         $this->title = $title;
-
+        $this->size = $size;
     }
 
     /**
