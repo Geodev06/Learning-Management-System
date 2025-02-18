@@ -30,6 +30,8 @@ Route::controller(PageController::class)->middleware('auth')->group(function () 
     Route::get('/modules', 'modules')->name('modules');
     Route::get('/module-lessons/{module_id}', 'module_lessons')->name('module_lessons');
     Route::get('/manage_lessons/{module_id}/{lesson_id}', 'manage_lessons')->name('manage_lessons');
+    Route::get('/manage_lessons/activities/{module_id}/{lesson_id}/{type}', 'manage_activities')->name('manage_activities');
+
 });
 
 Route::controller(StudentController::class)->middleware('auth','fl')->group(function () {
@@ -44,4 +46,14 @@ Route::controller(SurveyController::class)->middleware('auth')->group(function (
 
 Route::controller(FileUploadController::class)->middleware('auth')->group(function () {
     Route::post('/upload', 'upload')->name('upload');
+    Route::get('/download/{filename}', function ($file)  {
+        $filePath = public_path('files/' . $file);  // Files in public/files
+    
+        if (file_exists($filePath)) {
+            return response()->download($filePath);
+        } else {
+            abort(404);  // Return 404 if file not found
+        }
+    })->name('download');
+
 });

@@ -10,6 +10,7 @@ class LessonAttachment extends Model
     use HasFactory;
     protected $fillable = [
         'lesson_id',
+        'caption',
         'file_path',
         'file_type',
         'orig_file_name',

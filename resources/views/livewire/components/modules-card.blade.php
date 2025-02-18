@@ -6,7 +6,7 @@
 
             <div class="card-body d-flex flex-column">
                 <div class="d-flex justify-content-between">
-                    <h4>{{ $module->title }}</h4>
+                    <h4>{{ ucfirst($module->title) }}</h4>
                     <div class="d-flex justify-content-between">
                         @if($module->post_flag == 'Y')
                         <i class="fa fa-folder text-primary cursor-pointer"

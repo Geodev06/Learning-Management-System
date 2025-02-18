@@ -30,12 +30,40 @@ class PageController extends Controller
     {
         $module_id = base64_decode($module_id);
         $lesson_id = base64_decode($lesson_id);
+        $module = Module::find($module_id);
+        $lesson = ModuleLesson::find($lesson_id);
+        return view('pages.lesson', compact('module', 'lesson'));
 
+    }
+
+    public function manage_activities($module_id, $lesson_id, $type)
+    {
+        $module_id = base64_decode($module_id);
+        $lesson_id = base64_decode($lesson_id);
+        $type = decrypt($type);
         $module = Module::find($module_id);
         $lesson = ModuleLesson::find($lesson_id);
 
+        switch ($type) {
+            case 'MC':
+                $type = 'Multiple Choice';
+                break;
+            case 'I':
+                $type = 'Identification';
+                break;
+            case 'E':
+                $type = 'Essay';
+                break;
+            case 'HO':
+                $type = 'Hands-On';
+                break;
 
-        return view('pages.lesson', compact('module','lesson'));
-        
+            default:
+                # code...
+                break;
+        }
+
+        return view('pages.manage_activities', compact('module', 'lesson', 'type'));
+
     }
 }

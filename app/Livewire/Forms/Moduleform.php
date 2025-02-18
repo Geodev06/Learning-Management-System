@@ -51,6 +51,7 @@ class Moduleform extends Component
             $this->reset();
         }
     }
+    
 
 
 
@@ -65,7 +66,7 @@ class Moduleform extends Component
         $data = $this->validate([
             'title' => 'required|string|max:250',
             'overview' => 'required|string|max:500',
-            'no_of_lessons' => 'required|numeric|integer|max:50'
+            'no_of_lessons' => 'required|numeric|integer|min:1|max:50'
         ]);
 
 

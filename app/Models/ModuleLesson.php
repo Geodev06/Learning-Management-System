@@ -12,6 +12,7 @@ class ModuleLesson extends Model
         'module_id',
         'desc',
         'title',
-        'lesson_no'
+        'lesson_no',
+        'open_flag'
     ];
 }

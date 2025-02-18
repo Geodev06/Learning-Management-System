@@ -61,15 +61,17 @@
 
                                         </div>
 
-                                        <div class="tab-content tab-content-basic">
-                                            <div class="tab-pane fade show" id="activities" role="tabpanel" aria-labelledby="activities">
-                                                <div class="row flex-grow">
-                                                    <div class="col-lg-12">
-                                                        <p>Activities</p>
-                                                    </div>
-                                                </div>
+                                  
+                                    </div>
+                                    <div class="tab-pane fade show " id="activities" role="tabpanel" aria-labelledby="activities">
+                                        <div class="row row-action">
+                                            <div class="col-lg-12 ">
+                                                <button data-module_id="{{ base64_encode($module->id) }}" data-lesson_id="{{ base64_encode($lesson->id) }}" data-type="{{ encrypt('MC') }}" class="btn btn-lg btn-primary text-white btn-action">Multiple choice</button>
+                                                <button data-module_id="{{ base64_encode($module->id) }}" data-lesson_id="{{ base64_encode($lesson->id) }}" data-type="{{ encrypt('I') }}" class="btn btn-lg btn-primary text-white btn-action">Identification</button>
+                                                <button data-module_id="{{ base64_encode($module->id) }}" data-lesson_id="{{ base64_encode($lesson->id) }}" data-type="{{ encrypt('E') }}" class="btn btn-lg btn-primary text-white btn-action">Essay</button>
+                                                <button data-module_id="{{ base64_encode($module->id) }}" data-lesson_id="{{ base64_encode($lesson->id) }}" data-type="{{ encrypt('HO') }}" class=" btn btn-lg btn-primary text-white btn-action">Hands-on</button>
                                             </div>
-                                        </div>
+                                        </div>                                  
                                     </div>
                                 </div>
                             </div>
@@ -93,9 +95,16 @@
                         <option value="PDF">PDF</option>
                         <option value="LINK">LINK</option>
                         <option value="PPT">PPT</option>
+                        <option value="VIDEO">VIDEO</option>
                         <option value="OTHER">OTHER</option>
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <label for="input" class="control-label">Caption <span class="text-danger">*</span></label><i class="bar"></i>
+                    <input type="text" name="caption" class="form-control" placeholder="Enter Caption here" autocomplete="off">
+                </div>
+
                 <div class="ppt-label font-12">Note : The System cannot directly Store a .pptx file please upload it to oneDrive and get the embed code and paste in as a link.</div>
 
                 <div class="form-group file-input">
@@ -111,19 +120,20 @@
 
                 <div class="button-container">
                     <button type="submit"
-                        class="btn btn-rounded btn-primary">Upload
+                        class="btn btn-rounded btn-submit btn-primary">Upload
 
                     </button>
                 </div>
             </form>
         </x-modal>
 
+      
+
 
 
 </body>
 @include('core.core_js')
 <script src="{{ asset('assets/js/sweetalert2.all.min.js') }}"></script>
-
 
 @livewireScripts
 <script>
@@ -142,7 +152,7 @@
             }
 
             // Show/hide the file input and text input based on the selected type
-            if (selectedType === 'PDF' || selectedType === 'OTHER') {
+            if (selectedType === 'PDF' || selectedType === 'OTHER' || selectedType === 'VIDEO') {
                 $('.file-input').show(); // Show file input
                 $('.text-input').hide(); // Hide text input
             } else {
@@ -171,6 +181,8 @@
             // Prepare the form data (including file and text input)
             var formData = new FormData(this);
 
+            loading()
+
             $.ajax({
                 url: '/upload', // Replace with the correct route in your Laravel app
                 type: 'POST',
@@ -189,22 +201,44 @@
                             window.location.reload();
                         });
                     }
+                    stop_loading()
+
                 },
                 error: function(xhr, status, error) {
                     $('.ERROR').text(xhr.responseJSON.message);
+
                     if (xhr.status == 413) {
                         $('.ERROR').text(error + " Max. of 10MB.");
                     }
-                    if (xhr.status == 400) {
-                        $('.ERROR').text(error + 'File maybe corrupted.');
-                    }
 
-                    console.log(xhr)
+                    if (xhr.status == 400) {
+                        $('.ERROR').text(xhr.responseJSON.message);
+                    }
+                    stop_loading()
+
                 }
+
+
             });
         });
 
-       
+        
+        $('.row-action').on('click','.btn-action', function(e) {
+            var module_id = $(this).data('module_id');
+            var lesson_id = $(this).data('lesson_id');
+            var type = $(this).data('type');
+
+            // Replace the placeholders in the URL template with actual values
+            var url_link = "{{ route('manage_activities', ['module_id' => ':module_id', 'lesson_id' => ':lesson_id', 'type' => ':type']) }}";
+            url_link = url_link.replace(':module_id', module_id)
+                            .replace(':lesson_id', lesson_id)
+                            .replace(':type', type);
+
+            window.location.replace(url_link)
+
+
+
+        })
 
     });
 </script>

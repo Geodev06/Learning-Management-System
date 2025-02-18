@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('lesson_attachments', function (Blueprint $table) {
             $table->id();
             $table->integer('lesson_id');
+            $table->string('caption');
             $table->text('file_path');
             $table->text('orig_file_name')->nullable();
             $table->text('sys_file_name')->nullable();

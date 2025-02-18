@@ -33,16 +33,15 @@
                         </div>
                         @forelse($lessons as $lesson)
                         <div class="col-sm-12 mb-4">
-                            <div class="card cursor-pointer" data-link="{{ route('manage_lessons', [base64_encode($module->id), base64_encode($lesson->id)]) }}"
->
+                            <div class="card">
                                 <div class="card-body d-flex flex-column">
                                     <div class="d-flex justify-content-between">
-                                        <h4>{{ $lesson->title }}</h4>
-                                       
+                                        <h4 class="cursor-pointer" data-link="{{ route('manage_lessons', [base64_encode($module->id), base64_encode($lesson->id)]) }}">{{ $lesson->title }}</h4>
+                                        <livewire:components.lesson-toggle-button lesson_id="{{ $lesson->id }}" />
                                     </div>
                                     <p class="font-12">{{ $lesson->desc ?? '' }}</p>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
                         @empty
@@ -66,8 +65,7 @@
 @include('core.core_js')
 
 <script>
-
-    $('.row').on('click','.cursor-pointer', function(e) {
+    $('.row').on('click', '.cursor-pointer', function(e) {
         window.location.replace(this.dataset.link)
     })
 </script>

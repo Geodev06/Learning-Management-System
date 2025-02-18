@@ -18,7 +18,7 @@ class Deleteprompt extends Component
     {
         $this->id = $id;
         $module = Module::find($this->id);
-        $this->title = ucfirst($module->title);
+        $this->title = ucfirst($module->title ?? '');
     }
     public function submit()
     {

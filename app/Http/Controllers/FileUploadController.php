@@ -21,7 +21,8 @@ class FileUploadController extends Controller
         if ($request->hasFile('file') && ($request->file_type == 'PDF' || $request->file_type == 'OTHER')) {
             // Custom validation rules for file
             $validated = $request->validate([
-                'file' => 'required|mimes:jpg,png,pdf|max:10240', // Max 10MB, allowed types
+                'caption' => 'required|max:255|string',
+                'file' => 'required|max:10240', // Max 10MB, allowed types
             ]);
 
             // If file passes validation
@@ -47,6 +48,7 @@ class FileUploadController extends Controller
                     'lesson_id' => $lesson_id,
                     'file_type' => $request->file_type,
                     'file_path' => $file_path,
+                    'caption' => $request->caption,
                     'file_system_name'=> $fileName,
                     'orig_file_name' => $file->getClientOriginalName(),
                 ]);
@@ -68,10 +70,66 @@ class FileUploadController extends Controller
 
         }
 
+        if ($request->hasFile('file') && $request->file_type == 'VIDEO') {
+            // Custom validation rules for file
+            $validated = $request->validate([
+                'caption' => 'required|max:255|string',
+                'file' => [
+                    'required',
+                    'mimes:mp4,mov,avi,mkv,flv',  // Allowed video file types
+                    'max:102400', // Max file size: 10MB (if you want 100MB, change this to 102400)
+                ],
+            ]);
+            
+            // If file passes validation
+            $file = $request->file('file');
+            $fileName = time() . '-' . $file->getClientOriginalName();
+
+            // Define the directory to store the file (in the public folder)
+            $destinationPath = public_path('uploads'); // Store in public/uploads folder
+
+            // Create the directory if it doesn't exist
+            if (!File::exists($destinationPath)) {
+                File::makeDirectory($destinationPath, 0755, true);
+            }
+
+            $file->move($destinationPath, $fileName);
+
+            $file_path = 'uploads/' . $fileName;
+
+            try {
+                DB::beginTransaction();
+
+                LessonAttachment::create([
+                    'lesson_id' => $lesson_id,
+                    'file_type' => $request->file_type,
+                    'file_path' => $file_path,
+                    'caption' => $request->caption,
+                    'file_system_name'=> $fileName,
+                    'orig_file_name' => $file->getClientOriginalName(),
+                ]);
+
+                DB::commit();
+
+            } catch (\Throwable $th) {
+                DB::rollBack();
+                Log::error($th->getMessage());
+            }
+
+            return response()->json([
+                'message' => 'File uploaded successfully!',
+                'file_path' => url('uploads/' . $fileName),  // URL to access the file,
+                'status' => 200
+            ]);
+
+           
+
+        }
         // Validate the inputText if it's provided (only if file type is not PDF or OTHER)
         if ($request->has('inputText') && ($request->file_type != 'PDF' && $request->file_type != 'OTHER')) {
             // Validation for inputText if file type is not PDF or OTHER
             $validated = $request->validate([
+                'caption' => 'required|max:255|string',
                 'inputText' => 'required|string', // Example: validating it as a string
             ]);
 
@@ -83,6 +141,7 @@ class FileUploadController extends Controller
 
                 LessonAttachment::create([
                     'lesson_id' => $lesson_id,
+                    'caption' => $request->caption,
                     'file_type' => $request->file_type,
                     'file_path' => $link,
                 ]);

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->integer('lesson_no');
             $table->string('title', 255)->nullable()->default('Lesson Title.');
             $table->string('desc', 255)->nullable()->default('Lesson Description.');
+            $table->enum('open_flag', ['Y','N'])->default('N');
+
             $table->timestamps();
         });
     }

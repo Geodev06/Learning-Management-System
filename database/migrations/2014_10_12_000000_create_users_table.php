@@ -36,7 +36,7 @@ return new class extends Migration
         $password = "'".'$2y$10$wQzxSjKjv34R0aEnl0A9O.DunJaxP.8aWFJairWY.xm7sA7WLh5U.'."'";
 
         DB::unprepared("
-                 INSERT INTO `lms`.`users` ( `first_name`, `middle_name`, `last_name`, `email`, `password`, `active_flag`, `gender`, `role`, `login_attempt`, `first_login`, `learning_modality`, `created_at`, `updated_at`) VALUES ( 'QWdlbw==', '', 'QWdub3Rl', 'lms.admin@yopmail.com', $password, 'Y', 'NS', 'STUDENT', '3', '0', 'V', '2025-02-11 16:14:33', '2025-02-11 16:15:10');
+                 INSERT INTO `lms`.`users` ( `first_name`, `middle_name`, `last_name`, `email`, `password`, `active_flag`, `gender`, `role`, `login_attempt`, `first_login`, `learning_modality`, `created_at`, `updated_at`) VALUES ( 'QWdlbw==', '', 'QWdub3Rl', 'lms.admin@yopmail.com', $password, 'Y', 'NS', 'ADMIN', '3', '0', 'V', '2025-02-11 16:14:33', '2025-02-11 16:15:10');
         ");
     }
 
