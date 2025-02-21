@@ -18,9 +18,9 @@
         }
     </style>
     @forelse($learning_materials as $module)
-    <div class="col">
-        <div class="card h-100">
-            <img src="https://img.freepik.com/premium-photo/educational-concept-books-blue_387680-275.jpg" class="card-img-top" alt="...">
+    <div class="col-sm-12 col-lg-3 col-md-6">
+        <div class="card" wire:click="redirect_view('{{ encrypt($module->id) }}')">
+            <img  src="https://www.reliservsolution.net/wp-content/uploads/2021/10/Substation-Automation-4.jpg" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">{{ ucwords($module->title) }} </h5>
               

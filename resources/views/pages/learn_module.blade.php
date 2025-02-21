@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Module Lessons</title>
+    <title>{{ ucfirst($module->title) ?? '' }}</title>
     @include('core.core_css')
 
     @livewireStyles
@@ -23,21 +23,19 @@
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="row">
-                        <h4>Lesson Management</h4>
-                        <div class="col-sm-12 mb-4">
-                            <button class="btn btn-sm btn-primary float-end"
-                                onclick="window.location.replace('/modules')">Back</button>
+                        <h4 class="mb-3">Learning Module</h4>
+                        <div class="col-lg-12">
+                            <button onclick="window.history.back()" class="float-end btn btn-primary  mb-2">Back</button>
                         </div>
-                        <div class="col-sm-12 mb-3">
-                            <h2><b>{{ ucwords($module->title) }}</b></h2>
-                        </div>
+
+                        <livewire:components.module-header id="{{ $module->id }}" />
+
                         @forelse($lessons as $lesson)
-                        <div class="col-sm-12 mb-4">
-                            <div class="card">
+                        <div class="col-sm-12 mb-2">
+                            <div class="card cursor-pointer" data-link="{{ route('learn_lesson', [encrypt($module->id), encrypt($lesson->id)]) }}">
                                 <div class="card-body d-flex flex-column">
                                     <div class="d-flex justify-content-between">
-                                        <h4 class="cursor-pointer text-primary" data-link="{{ route('manage_lessons', [base64_encode($module->id), base64_encode($lesson->id)]) }}">{{ $lesson->title }}</h4>
-                                        <livewire:components.lesson-toggle-button lesson_id="{{ $lesson->id }}" />
+                                        <h4 class="" >{{ $lesson->title }}</h4>
                                     </div>
                                     <p class="font-12">{{ $lesson->desc ?? '' }}</p>
 
@@ -45,11 +43,10 @@
                             </div>
                         </div>
                         @empty
-                        <div class="col-lg-12">
-                            <p>No Lessons</p>
+                        <div class="col-lg-12 mt-5">
+                            <p class="mx-2">No Lessons Available</p>
                         </div>
                         @endforelse
-
                     </div>
                 </div>
                 <!-- content-wrapper ends -->
@@ -65,14 +62,11 @@
 
 </body>
 @include('core.core_js')
-
 <script>
     $('.row').on('click', '.cursor-pointer', function(e) {
-        window.location.replace(this.dataset.link)
+        window.location.href = this.dataset.link
     })
 </script>
-
-
 
 @livewireScripts
 

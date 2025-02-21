@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\GuestController;
@@ -36,6 +37,14 @@ Route::controller(PageController::class)->middleware('auth')->group(function () 
 
 Route::controller(StudentController::class)->middleware('auth','fl')->group(function () {
     Route::get('/learn', 'learn')->name('learn');
+    Route::get('/my-modules', 'my_modules')->name('my_modules');
+    Route::get('/my-modules/learn/{module_id}', 'learn_module')->name('learn_module');
+    Route::get('/my-modules/learn/lesson/{module_id}/{lesson_id}', 'learn_lesson')->name('learn_lesson');
+    Route::get('/module-preview/{module_id}', 'module_preview')->name('module_preview');
+});
+
+Route::controller(AssessmentController::class)->middleware('auth','fl')->group(function () {
+    Route::get('/module-assessment/{module_id}/{lesson_id}', 'module_assessment')->name('module_assessment');
 });
 
 Route::controller(SurveyController::class)->middleware('auth')->group(function () {

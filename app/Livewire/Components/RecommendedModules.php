@@ -9,6 +9,11 @@ use Livewire\Component;
 
 class RecommendedModules extends Component
 {
+
+    public function view_module($id) 
+     {
+        $this->redirect(route('module_preview', $id));
+    }
     public function render()
     {
 

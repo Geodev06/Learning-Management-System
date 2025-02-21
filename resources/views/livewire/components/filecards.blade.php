@@ -17,7 +17,7 @@
         <div class="row">
             @forelse($files as $file)
                 <div class="col-sm-12 col-md-6 col-lg-3 mb-2">
-                    <div class="card cursor-pointer"
+                    <div class="card h-100 cursor-pointer border"
                         wire:click="$dispatch('render-file', { payload: '{{ $file->file_path }}', type: '{{ $file->file_type }}' })">
                         <div class="card-body">
                             @if($file->file_type == 'PDF')
@@ -29,7 +29,8 @@
                             @if($file->file_type == 'PPT')
                                 <i class="fa fa-file-powerpoint-o text-danger"></i>
                                 <p class="m-0"><b>{{  $file->caption ?? ''  }}</b></p>
-                                <p class="file-text">{{ $file->file_path ?? '' }}</p>
+                                <p class="file-text">MICROSOFT PRESENTATION</p>
+
                             @endif
 
                             @if($file->file_type == 'VIDEO')
@@ -49,6 +50,8 @@
                                 <p class="m-0"><b>{{  $file->caption ?? ''  }}</b></p>
                                 <p class="file-text">{{ $file->file_path ?? '' }}</p>
                             @endif
+
+
                         </div>
 
                     </div>
@@ -137,7 +140,10 @@
 
                         window.open(payload.payload, "_blank");
                         $('#modal_preview').modal('hide')
-                        $('.content').html('Preview Not available.')
+                        $video_id = payload.payload.split("=")[1]
+                        $img = '<img src="https://img.youtube.com/vi/:video_id/maxresdefault.jpg" width="100%" alt="YouTube Thumbnail">'
+                        $preview_html = $img.replace(':video_id', $video_id)
+                        $('.content').html($preview_html)
 
                         break;
                 }

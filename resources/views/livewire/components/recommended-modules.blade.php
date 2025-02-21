@@ -21,7 +21,7 @@
 
 
     <div class="col">
-        <div class="card card-mini  shadow-sm mb-3" style="max-width: 540px;">
+        <div class="card card-mini  shadow-sm mb-3" style="max-width: 540px;" wire:click="view_module('{{encrypt( $module->id) }}')">
             <div class="row g-0">
                 <div class="col-md-4">
                     <img src="https://img.freepik.com/premium-photo/educational-concept-books-blue_387680-275.jpg" class="img-fluid h-100 rounded-start" alt="...">

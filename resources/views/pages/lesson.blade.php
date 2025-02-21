@@ -61,7 +61,7 @@
 
                                         </div>
 
-                                  
+
                                     </div>
                                     <div class="tab-pane fade show " id="activities" role="tabpanel" aria-labelledby="activities">
                                         <div class="row row-action">
@@ -71,7 +71,7 @@
                                                 <button data-module_id="{{ base64_encode($module->id) }}" data-lesson_id="{{ base64_encode($lesson->id) }}" data-type="{{ encrypt('E') }}" class="btn btn-lg btn-primary text-white btn-action">Essay</button>
                                                 <button data-module_id="{{ base64_encode($module->id) }}" data-lesson_id="{{ base64_encode($lesson->id) }}" data-type="{{ encrypt('HO') }}" class=" btn btn-lg btn-primary text-white btn-action">Hands-on</button>
                                             </div>
-                                        </div>                                  
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +86,6 @@
         <!-- Modal component -->
         <x-modal id="modal" title="Attachment">
             <form id="file-upload-form" class="forms-sample" enctype="multipart/form-data">
-                <div class="ERROR text-danger font-12"></div>
                 <div class="form-group">
                     @csrf
                     <input type="hidden" name="lesson_id" value="{{ base64_encode($lesson->id) }}">
@@ -101,21 +100,30 @@
                 </div>
 
                 <div class="form-group">
+
                     <label for="input" class="control-label">Caption <span class="text-danger">*</span></label><i class="bar"></i>
                     <input type="text" name="caption" class="form-control" placeholder="Enter Caption here" autocomplete="off">
+                <div class="caption-error text-danger font-12"></div>
+
                 </div>
 
                 <div class="ppt-label font-12">Note : The System cannot directly Store a .pptx file please upload it to oneDrive and get the embed code and paste in as a link.</div>
 
                 <div class="form-group file-input">
+
                     <label for="input" class="control-label">File</label><i class="bar"></i>
                     <input type="file" name="file" accept=".pdf" class="file-input @if ($errors->has('file')) text-danger @else text-primary @endif form-control" autocomplete="off">
+                    <div class="file-error text-danger font-12"></div>
+                
                 </div>
 
                 <!-- Text input field (hidden by default) -->
                 <div class="form-group text-input" style="display:none;">
                     <label for="inputText" class="control-label">Enter Link</label><i class="bar"></i>
+
                     <input type="text" id="inputText" name="inputText" class="form-control" placeholder="Enter your link here">
+                    <div class="inputText-error text-danger font-12"></div>
+
                 </div>
 
                 <div class="button-container">
@@ -127,7 +135,7 @@
             </form>
         </x-modal>
 
-      
+
 
 
 
@@ -182,6 +190,8 @@
             var formData = new FormData(this);
 
             loading()
+            $('.caption-error').text('')
+            $('.file-error').text('')
 
             $.ajax({
                 url: '/upload', // Replace with the correct route in your Laravel app
@@ -208,12 +218,21 @@
                     $('.ERROR').text(xhr.responseJSON.message);
 
                     if (xhr.status == 413) {
-                        $('.ERROR').text(error + " Max. of 10MB.");
+                        $('.file-error').text(xhr.statusText + " Max. of 5MB. for PDF files and 10MB. for Compressed files and Videos.");
                     }
 
-                    if (xhr.status == 400) {
-                        $('.ERROR').text(xhr.responseJSON.message);
+                    if (xhr.status == 422) {
+                        $.each(xhr.responseJSON.errors, function(field, messages) {
+                            // Here field is the name of the field and messages is an array of validation errors for that field
+                            // For each field, display the errors
+                            var errorMessage = messages.join(', '); // Combine multiple errors into one string
+
+                            // Append the error message for each field to the respective HTML element (you can modify the selector to match your field)
+                            $('.' + field + '-error').text(errorMessage); // Assuming you have an element with ID like "field_name-error"
+                        });
                     }
+
+                    console.log(xhr)
                     stop_loading()
 
                 }
@@ -222,8 +241,8 @@
             });
         });
 
-        
-        $('.row-action').on('click','.btn-action', function(e) {
+
+        $('.row-action').on('click', '.btn-action', function(e) {
             var module_id = $(this).data('module_id');
             var lesson_id = $(this).data('lesson_id');
             var type = $(this).data('type');
@@ -231,8 +250,8 @@
             // Replace the placeholders in the URL template with actual values
             var url_link = "{{ route('manage_activities', ['module_id' => ':module_id', 'lesson_id' => ':lesson_id', 'type' => ':type']) }}";
             url_link = url_link.replace(':module_id', module_id)
-                            .replace(':lesson_id', lesson_id)
-                            .replace(':type', type);
+                .replace(':lesson_id', lesson_id)
+                .replace(':type', type);
 
             window.location.replace(url_link)
 
