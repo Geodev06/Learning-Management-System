@@ -60,8 +60,10 @@
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="d-flex justify-content-between align-items-center mb-2 mb-sm-0">
-
+                                                    <h4>Total Points</h4>
+                                                    <h1><b>{{ number_format($total_user_points ?? 0)  }}</b></h1>
                                                 </div>
+                                                <p class="font-12">Points Accumulated from all activities.</p>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="d-flex justify-content-between align-items-center">

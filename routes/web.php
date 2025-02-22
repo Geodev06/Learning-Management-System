@@ -44,7 +44,7 @@ Route::controller(StudentController::class)->middleware('auth','fl')->group(func
 });
 
 Route::controller(AssessmentController::class)->middleware('auth','fl')->group(function () {
-    Route::get('/module-assessment/{module_id}/{lesson_id}', 'module_assessment')->name('module_assessment');
+    Route::get('/module-assessment/{module_id}/{lesson_id}/{type}', 'module_assessment')->name('module_assessment');
 });
 
 Route::controller(SurveyController::class)->middleware('auth')->group(function () {

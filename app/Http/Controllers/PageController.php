@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Assessment;
 use App\Models\Module;
 use App\Models\ModuleLesson;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
     public function dashboard()
     {
-        return view('pages.dashboard');
+        $total_user_points = Assessment::where('created_by', Auth::user()->id)->sum('points');
+        return view('pages.dashboard',[
+            'total_user_points' => $total_user_points
+        ]);
     }
 
     public function modules()

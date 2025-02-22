@@ -13,10 +13,10 @@ class LessonPreview extends Component
     public $module_id, $lesson_id;
 
 
-    public function take_assessment($module_id, $lesson_id)
+    public function take_assessment($module_id, $lesson_id, $type)
     {
         // trigger assessment_mode\
-        $this->redirect(route('module_assessment', ['module_id' => $module_id, 'lesson_id' => $lesson_id]));
+        $this->redirect(route('module_assessment', ['module_id' => $module_id, 'lesson_id' => $lesson_id, 'type' => $type]));
     }
 
     public function mount($module_id, $lesson_id)

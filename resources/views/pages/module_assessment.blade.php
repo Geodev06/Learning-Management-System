@@ -25,7 +25,7 @@
                     <div class="row">
                         <h4 class="mb-3">Assessment</h4>
 
-                        <livewire:forms.assessment-form module_id="{{ $module_id }}" lesson_id="{{ $lesson_id }}" />
+                        <livewire:forms.assessment-form module_id="{{ $module_id }}" lesson_id="{{ $lesson_id }}" type="{{ $type }}"/>
 
                     </div>
                 </div>
