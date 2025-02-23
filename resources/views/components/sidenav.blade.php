@@ -6,7 +6,7 @@
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
-        @if(Auth::user()->role == 'ADMIN')
+        @if(Auth::user()->role == 'ADMIN' || Auth::user()->role == 'TEACHER')
         <li class="nav-item nav-category">Core</li>
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
@@ -23,6 +23,9 @@
             </div>
         </li>
 
+        @endif
+
+        @if(Auth::user()->role == 'ADMIN')
         <li class="nav-item nav-category">System Administration</li>
 
         <li class="nav-item ">

@@ -1,9 +1,11 @@
 <?php
 
+use App\Events\MessageSent;
 use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\GuestController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SurveyController;
@@ -23,6 +25,7 @@ use Livewire\Features\SupportFileUploads\FileUploadSynth;
 
 Route::controller(GuestController::class)->group(function () {
     Route::get('/', 'login')->name('login');
+
     Route::get('/register', 'register')->name('register');
 });
 
@@ -64,5 +67,10 @@ Route::controller(FileUploadController::class)->middleware('auth')->group(functi
             abort(404);  // Return 404 if file not found
         }
     })->name('download');
+
+});
+
+Route::controller(NotificationController::class)->middleware('auth')->group(function () {
+    Route::get('/notifications', 'notifications')->name('notifications');
 
 });

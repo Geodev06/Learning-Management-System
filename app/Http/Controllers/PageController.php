@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSent;
 use App\Models\Assessment;
 use App\Models\Module;
 use App\Models\ModuleLesson;
@@ -12,8 +13,9 @@ class PageController extends Controller
 {
     public function dashboard()
     {
+
         $total_user_points = Assessment::where('created_by', Auth::user()->id)->sum('points');
-        return view('pages.dashboard',[
+        return view('pages.dashboard', [
             'total_user_points' => $total_user_points
         ]);
     }
@@ -38,7 +40,6 @@ class PageController extends Controller
         $module = Module::find($module_id);
         $lesson = ModuleLesson::find($lesson_id);
         return view('pages.lesson', compact('module', 'lesson'));
-
     }
 
     public function manage_activities($module_id, $lesson_id, $type)
@@ -69,6 +70,5 @@ class PageController extends Controller
         }
 
         return view('pages.manage_activities', compact('module', 'lesson', 'type'));
-
     }
 }

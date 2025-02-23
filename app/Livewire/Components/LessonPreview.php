@@ -2,9 +2,11 @@
 
 namespace App\Livewire\Components;
 
+use App\Models\Assessment;
 use App\Models\LessonAttachment;
 use App\Models\Module;
 use App\Models\ModuleLesson;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class LessonPreview extends Component
@@ -12,6 +14,10 @@ class LessonPreview extends Component
 
     public $module_id, $lesson_id;
 
+    public $has_mc = false;
+    public $has_e = false;
+    public $has_i = false;
+    public $has_ho = false;
 
     public function take_assessment($module_id, $lesson_id, $type)
     {
@@ -23,6 +29,52 @@ class LessonPreview extends Component
     {
         $this->module_id = $module_id;
         $this->lesson_id = $lesson_id;
+
+        if(Assessment::where([
+            'module_id' => $module_id,
+            'lesson_id' => $lesson_id,
+            'type' => 'MC',
+            'created_by' => Auth::user()->id,
+
+        ])->first()) {
+
+            $this->has_mc = true;
+        }
+
+        if(Assessment::where([
+            'module_id' => $module_id,
+            'lesson_id' => $lesson_id,
+            'type' => 'I',
+            'created_by' => Auth::user()->id,
+
+        ])->first()) {
+
+            $this->has_i = true;
+        }
+
+        if(Assessment::where([
+            'module_id' => $module_id,
+            'lesson_id' => $lesson_id,
+            'type' => 'E',
+            'created_by' => Auth::user()->id,
+
+        ])->first()) {
+
+            $this->has_e = true;
+        }
+
+        if(Assessment::where([
+            'module_id' => $module_id,
+            'lesson_id' => $lesson_id,
+            'type' => 'HO',
+            'created_by' => Auth::user()->id,
+
+        ])->first()) {
+
+            $this->has_ho = true;
+        }
+       
+
     }
     public function render()
     {

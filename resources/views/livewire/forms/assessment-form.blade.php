@@ -17,6 +17,18 @@
 
                 @endif
 
+                @if($type == 'E')
+
+                @include('partials.e_form')
+
+                @endif
+
+                @if($type == 'HO')
+
+                @include('partials.ho_form')
+
+                @endif
+
                 @include('partials.assessment_buttons')
             </div>
         </div>
@@ -35,7 +47,7 @@
                 text: data[0].message,
                 icon: data[0].status
             }).then(function() {
-                window.location.replace('/dashboard');
+                window.location.replace("{{ route('learn_lesson', ['module_id'=> encrypt($module_id), 'lesson_id'=> encrypt($lesson_id)]) }}");
             });
 
         })

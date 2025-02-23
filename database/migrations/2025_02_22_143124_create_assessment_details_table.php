@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->integer('assessment_id');
             $table->text('question');
-            $table->text('correct_answer');
+            $table->text('correct_answer')->nullable();
             $table->text('user_answer');
-            $table->enum('correct_flag', ['Y', 'N']);
-            $table->integer('points');
+            $table->enum('correct_flag', ['Y', 'N'])->default('N');
+            $table->integer('points')->default(0);
             $table->timestamps();
         });
     }

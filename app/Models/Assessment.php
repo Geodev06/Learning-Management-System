@@ -18,6 +18,8 @@ class Assessment extends Model
         'grade',
         'points',
         'total_points',
-        'no_of_items'
+        'no_of_items',
+        'checked_flag',
+        'checker_id'
     ];
 }

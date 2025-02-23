@@ -66,6 +66,7 @@ class QuestionForm extends Component
     public function submit()
     {
 
+    
         switch ($this->type) {
             case 'Multiple Choice':
                 $this->validate([
@@ -237,6 +238,69 @@ class QuestionForm extends Component
                             'correct' => $this->correct,
                             'points' => $this->points,
                             'type' => 'E'
+                        ]);
+
+
+                        DB::commit();
+
+                        $this->dispatch('success', [
+                            'title' => 'Success',
+                            'message' => 'Question has been saved',
+                            'status' => 'success'
+                        ]);
+                    } else {
+                        // Updating an existing question
+                        DB::beginTransaction();
+
+                        $question = LessonQuestion::find($this->id);
+                        $question->question = $this->question;
+                        $question->correct = $this->correct;  // Fix: Correct field should be updated, not the question
+                        $question->points = $this->points;
+                        $question->save();
+
+
+                        DB::commit();
+
+                        $this->dispatch('success', [
+                            'title' => 'Success',
+                            'message' => 'Question has been updated',
+                            'status' => 'success'
+                        ]);
+                    }
+
+                    $this->clear();
+                } catch (\Throwable $th) {
+                    DB::rollBack();
+                    Log::error($th->getMessage());
+                    $this->dispatch('error', [
+                        'title' => 'Error',
+                        'message' => $th->getMessage(),
+                        'status' => 'error'
+                    ]);
+                }
+
+                break;
+
+            case 'Hands-On':
+                $this->validate([
+                    'question' => 'required|max:1000|string',
+                    'points' => 'required|integer|min:1|max:50', // Add min validation for points
+                ]);
+
+                try {
+
+
+                    if (!$this->id) {
+                        // Creating a new question
+                        DB::beginTransaction();
+
+                        $question = LessonQuestion::create([
+                            'module_id' => $this->module_id,
+                            'lesson_id' => $this->lesson_id,
+                            'question' => $this->question,
+                            'correct' => $this->correct,
+                            'points' => $this->points,
+                            'type' => 'HO'
                         ]);
 
 

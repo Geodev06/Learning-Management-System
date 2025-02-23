@@ -21,6 +21,9 @@ return new class extends Migration
             $table->double('grade', 8, 2)->default(0.00);
             $table->enum('mark', ['P', 'F'])->default('F');
             $table->enum('type', ['MC', 'I', 'E', 'HO']);
+
+            $table->enum('checked_flag', ['Y', 'N'])->default('Y');
+            $table->integer('checker_id')->nullable(); // Creator of module
             $table->integer('created_by');
 
 
