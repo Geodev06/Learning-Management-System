@@ -13,7 +13,6 @@ class PageController extends Controller
 {
     public function dashboard()
     {
-
         $total_user_points = Assessment::where('created_by', Auth::user()->id)->sum('points');
         return view('pages.dashboard', [
             'total_user_points' => $total_user_points

@@ -28,7 +28,7 @@ $questionNumber = 1; // Reset question number for each section
 
                     <div class="form-group">
 
-                        <textarea name="" required="required" wire:model="answers.question_{{ $question->id }}" id="question_{{ $question->id }}" class="@if ($errors->has('answers.question_{{ $question->id }}')) text-danger @else text-primary @endif" autocomplete="off" cols="30" rows="3"></textarea>
+                        <textarea name="" required="required" wire:model="answers.question_{{ $question->id }}" id="question_{{ $question->id }}" class="@if ($errors->has('answers.question_{{ $question->id }}')) text-danger @else text-primary @endif" autocomplete="off" cols="30" rows="25"></textarea>
                         <label for="input" class="control-label">Your Code here</label><i class="bar"></i>
                         @if ($errors->has('answers.' . 'question_'.$question->id))
                         <span class="text-danger font-12">Field is required.</span>

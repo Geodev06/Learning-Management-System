@@ -46,8 +46,10 @@ Route::controller(StudentController::class)->middleware('auth','fl')->group(func
     Route::get('/module-preview/{module_id}', 'module_preview')->name('module_preview');
 });
 
-Route::controller(AssessmentController::class)->middleware('auth','fl')->group(function () {
+Route::controller(AssessmentController::class)->middleware('auth')->group(function () {
     Route::get('/module-assessment/{module_id}/{lesson_id}/{type}', 'module_assessment')->name('module_assessment');
+    Route::get('/assessment/{module_id}/{lesson_id}/{assessment_id}', 'assessment')->name('assessment');
+    Route::get('/view-assessment-result{assessment_id}', 'view_assessment_result')->name('view_assessment_result');
 });
 
 Route::controller(SurveyController::class)->middleware('auth')->group(function () {

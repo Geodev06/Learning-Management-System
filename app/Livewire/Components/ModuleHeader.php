@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Components;
 
+use App\Events\MessageSent;
 use App\Models\Module;
 use Livewire\Component;
 
@@ -9,6 +10,8 @@ class ModuleHeader extends Component
 {
 
     public $id;
+
+  
 
     public function mount($id)
     {

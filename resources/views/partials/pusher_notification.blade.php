@@ -8,7 +8,7 @@
         cluster: 'ap1'
     });
 
-    var channel = pusher.subscribe('notifications');
+    var channel = pusher.subscribe('user_notifications');
 
 
     function render_notifications() {
@@ -29,4 +29,5 @@
         console.log(data)
         render_notifications()
     });
+
 </script>

@@ -127,3 +127,4 @@
         </button>
     </div>
 </nav>
+@include('partials.pusher_notification')

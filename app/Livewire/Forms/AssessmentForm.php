@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Events\MessageSent;
 use App\Models\Assessment;
 use App\Models\AssessmentDetail;
 use App\Models\LessonQuestion;
@@ -37,6 +38,7 @@ class AssessmentForm extends Component
 
         // Dynamically generate validation rules for each question
         $rules = [];
+
 
         switch ($this->type) {
 
@@ -90,7 +92,7 @@ class AssessmentForm extends Component
                             AssessmentDetail::create([
                                 'assessment_id' => $assessment->id,
                                 'correct_flag' => $correct_flag,
-                                'points' => $multiple_choice[$i]->points,
+                                'points' => $correct_flag == 'Y' ? $multiple_choice[$i]->points : 0,
                                 'question' => $multiple_choice[$i]->question,
                                 'correct_answer' => $multiple_choice[$i]->correct,
                                 'user_answer' => $user_answer[$i]
@@ -121,7 +123,12 @@ class AssessmentForm extends Component
                         'title' => 'Assessment Submitted Multiple Choice',
                         'icon' => 'fas fa-check',
                         'seen_flag' => 0,
-                        'link' => 'sample link',
+                        'link' => route('assessment', [
+                            'module_id' => encrypt($this->module_id),
+                            'lesson_id' => encrypt($this->module_id),
+                            'assessment_id' => encrypt($assessment->id),
+
+                        ]),
                         'message' => 'Assessment Submitted By ' . base64_decode(Auth::user()->first_name) . ' ' . base64_decode(Auth::user()->last_name),
                         'receiver_id' => Module::find($this->module_id)->created_by,
                         'created_by' => Auth::user()->id
@@ -195,7 +202,7 @@ class AssessmentForm extends Component
                             AssessmentDetail::create([
                                 'assessment_id' => $assessment->id,
                                 'correct_flag' => $correct_flag,
-                                'points' => $identification[$i]->points,
+                                'points' => $correct_flag == 'Y' ? $identification[$i]->points : 0,
                                 'question' => $identification[$i]->question,
                                 'correct_answer' => $identification[$i]->correct,
                                 'user_answer' => $user_answer[$i]
@@ -225,7 +232,13 @@ class AssessmentForm extends Component
                         'title' => 'Assessment Submitted Identification',
                         'icon' => 'fas fa-check',
                         'seen_flag' => 0,
-                        'link' => 'sample link',
+                        'link' => route('assessment', [
+                            'module_id' => encrypt($this->module_id),
+                            'lesson_id' => encrypt($this->module_id),
+                            'assessment_id' => encrypt($assessment->id),
+
+
+                        ]),
                         'message' => 'Assessment Submitted By ' . base64_decode(Auth::user()->first_name) . ' ' . base64_decode(Auth::user()->last_name),
                         'receiver_id' => Module::find($this->module_id)->created_by,
                         'created_by' => Auth::user()->id
@@ -325,7 +338,13 @@ class AssessmentForm extends Component
                         'title' => 'Assessment Submitted Essay',
                         'icon' => 'fas fa-check',
                         'seen_flag' => 0,
-                        'link' => 'sample link',
+                        'link' => route('assessment', [
+                            'module_id' => encrypt($this->module_id),
+                            'lesson_id' => encrypt($this->module_id),
+                            'assessment_id' => encrypt($assessment->id),
+
+
+                        ]),
                         'message' => 'Assessment Submitted By ' . base64_decode(Auth::user()->first_name) . ' ' . base64_decode(Auth::user()->last_name),
                         'receiver_id' => Module::find($this->module_id)->created_by,
                         'created_by' => Auth::user()->id
@@ -425,7 +444,12 @@ class AssessmentForm extends Component
                         'title' => 'Assessment Submitted Hands On',
                         'icon' => 'fas fa-check',
                         'seen_flag' => 0,
-                        'link' => 'sample link',
+                        'link' => route('assessment', [
+                            'module_id' => encrypt($this->module_id),
+                            'lesson_id' => encrypt($this->module_id),
+                            'assessment_id' => encrypt($assessment->id),
+
+                        ]),
                         'message' => 'Assessment Submitted By ' . base64_decode(Auth::user()->first_name) . ' ' . base64_decode(Auth::user()->last_name),
                         'receiver_id' => Module::find($this->module_id)->created_by,
                         'created_by' => Auth::user()->id
@@ -462,7 +486,7 @@ class AssessmentForm extends Component
 
         $multiple_choice = LessonQuestion::where(
             $where
-        )->where('type', 'MC')->get();
+        )->where('type', 'MC')->inRandomOrder()->get();
 
         if (sizeof($multiple_choice) > 0) {
             foreach ($multiple_choice as $item) {
