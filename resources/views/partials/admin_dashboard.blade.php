@@ -20,31 +20,52 @@
         <div class="tab-content tab-content-basic">
             <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
                 <div class="row">
-                    <div class="col-sm-12">
-                        <div class="statistics-details d-flex align-items-center justify-content-between">
-                            <div>
-                                <p class="statistics-title">Learning Modules</p>
-                                <h3 class="rate-percentage">32.53%</h3>
-                                <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>-0.5%</span></p>
-                            </div>
-                            <div>
-                                <p class="statistics-title">Modules</p>
-                                <h3 class="rate-percentage">7,682</h3>
-                                <p class="text-success d-flex"><i class="mdi mdi-menu-up"></i><span>+0.1%</span></p>
-                            </div>
-                            <div>
-                                <p class="statistics-title">Accounts</p>
-                                <h3 class="rate-percentage">68.8</h3>
-                                <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p>
-                            </div>
-                            <div class="d-none d-md-block">
-                                <p class="statistics-title">Avg. Time on Site</p>
-                                <h3 class="rate-percentage">2m:35s</h3>
-                                <p class="text-success d-flex"><i class="mdi mdi-menu-down"></i><span>+0.8%</span></p>
+                    <div class="col-sm-12 col-md-8 col-lg-8 mb-2">
+                        <div class="row">
+                            <div class="col-sm-12 mb-2">
+                                <div class="statistics-details d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <p class="statistics-title">Learning Modules</p>
+                                        <h3 class="rate-percentage">{{ number_format($data['no_of_modules'], 0) }}</h3>
+                                    </div>
+                                    <div>
+                                        <p class="statistics-title">Available Activities</p>
+                                        <h3 class="rate-percentage">{{ number_format($data['no_of_activities'], 0) }}</h3>
+                                    </div>
+                                    <div>
+                                        <p class="statistics-title">Accounts</p>
+                                        <h3 class="rate-percentage">{{ number_format($data['no_of_users'], 0) }}</h3>
+                                    </div>
+                                    <div class="d-none d-md-block">
+                                        <p class="statistics-title">Student Submission Today</p>
+                                        <h3 class="rate-percentage">{{ number_format($data['no_of_student_submission_today'], 0) }}</h3>
+                                    </div>
+
+                                </div>
                             </div>
 
+                            <div class="col-sm-12 mb-2">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4><b>Pending Task</b></h4>
+
+                                        <livewire:tables.pending-task-table />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="col-sm-12 col-md-4 col-lg-4 mb-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <livewire:components.leaderboard />
+                            </div>
+                        </div>
+                    </div>
+
+
+
                 </div>
 
 

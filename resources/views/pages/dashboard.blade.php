@@ -30,7 +30,10 @@
 
                         @if(Auth::user()->role == 'STUDENT')
                         @include('partials.student_dashboard')
-                        
+                        @endif
+
+                        @if(Auth::user()->role == 'TEACHER')
+                        @include('partials.teacher_dashboard')
                         @endif
                     </div>
                 </div>

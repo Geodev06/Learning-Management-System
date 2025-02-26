@@ -2,6 +2,7 @@
 
 use App\Events\MessageSent;
 use App\Http\Controllers\AssessmentController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\GuestController;
@@ -49,15 +50,17 @@ Route::controller(StudentController::class)->middleware('auth','fl')->group(func
 Route::controller(AssessmentController::class)->middleware('auth')->group(function () {
     Route::get('/module-assessment/{module_id}/{lesson_id}/{type}', 'module_assessment')->name('module_assessment');
     Route::get('/assessment/{module_id}/{lesson_id}/{assessment_id}', 'assessment')->name('assessment');
-    Route::get('/view-assessment-result{assessment_id}', 'view_assessment_result')->name('view_assessment_result');
+    Route::get('/view-assessment-result/{assessment_id}', 'view_assessment_result')->name('view_assessment_result');
 });
 
 Route::controller(SurveyController::class)->middleware('auth')->group(function () {
     Route::get('/survey', 'survey')->name('survey');
     Route::get('/get_pre_assessment', 'get_pre_assessment')->name('get_pre_assessment');
-
 });
 
+Route::controller(ChartController::class)->middleware('auth')->group(function () {
+    Route::get('/get_avg_score_per_modules', 'get_avg_score_per_modules')->name('get_avg_score_per_modules');
+});
 Route::controller(FileUploadController::class)->middleware('auth')->group(function () {
     Route::post('/upload', 'upload')->name('upload');
     Route::get('/download/{filename}', function ($file)  {

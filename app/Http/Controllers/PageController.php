@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Events\MessageSent;
 use App\Models\Assessment;
+use App\Models\LessonQuestion;
 use App\Models\Module;
 use App\Models\ModuleLesson;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,8 +16,23 @@ class PageController extends Controller
     public function dashboard()
     {
         $total_user_points = Assessment::where('created_by', Auth::user()->id)->sum('points');
+
+        $data = [];
+
+        if(Auth::user()->role == 'ADMIN') {
+            $data['no_of_users'] = User::where('role','!=','ADMIN')->count();
+            $data['no_of_modules'] = Module::count();
+            $data['no_of_activities'] = LessonQuestion::distinct('module_id', 'lesson_id')->count();
+            $data['no_of_student_submission_today'] = Assessment::whereDate('created_at', now()->toDateString())->count();
+        }
+
+        if(Auth::user()->role == 'TEACHER') {
+            $data['no_of_modules'] = Module::where('created_by', Auth::user()->id)->count();
+        }
+
         return view('pages.dashboard', [
-            'total_user_points' => $total_user_points
+            'total_user_points' => $total_user_points,
+            'data' => $data
         ]);
     }
 

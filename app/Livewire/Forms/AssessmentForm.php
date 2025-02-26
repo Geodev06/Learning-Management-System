@@ -121,7 +121,7 @@ class AssessmentForm extends Component
                     $notification_data = [
                         'type' => 'notification',
                         'title' => 'Assessment Submitted Multiple Choice',
-                        'icon' => 'fas fa-check',
+                        'icon' => 'fas fa-bell',
                         'seen_flag' => 0,
                         'link' => route('assessment', [
                             'module_id' => encrypt($this->module_id),
@@ -230,7 +230,7 @@ class AssessmentForm extends Component
                     $notification_data = [
                         'type' => 'notification',
                         'title' => 'Assessment Submitted Identification',
-                        'icon' => 'fas fa-check',
+                        'icon' => 'fas fa-bell',
                         'seen_flag' => 0,
                         'link' => route('assessment', [
                             'module_id' => encrypt($this->module_id),
@@ -336,7 +336,7 @@ class AssessmentForm extends Component
                     $notification_data = [
                         'type' => 'notification',
                         'title' => 'Assessment Submitted Essay',
-                        'icon' => 'fas fa-check',
+                        'icon' => 'fas fa-bell',
                         'seen_flag' => 0,
                         'link' => route('assessment', [
                             'module_id' => encrypt($this->module_id),
@@ -442,7 +442,7 @@ class AssessmentForm extends Component
                     $notification_data = [
                         'type' => 'notification',
                         'title' => 'Assessment Submitted Hands On',
-                        'icon' => 'fas fa-check',
+                        'icon' => 'fas fa-bell',
                         'seen_flag' => 0,
                         'link' => route('assessment', [
                             'module_id' => encrypt($this->module_id),

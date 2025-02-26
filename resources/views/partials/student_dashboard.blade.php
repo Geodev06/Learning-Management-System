@@ -92,6 +92,16 @@
                         </div>
                     </div>
                     @endif
+
+                    <div class="col-sm-12 col-md-6 col-lg-6 mb-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4><b>My Activities</b></h4>
+
+                                <livewire:tables.pending-task-table />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

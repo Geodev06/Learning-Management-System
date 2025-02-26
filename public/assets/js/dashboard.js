@@ -585,6 +585,115 @@
 
     }
 
+    function getRandomColor() {
+      var letters = '0123456789ABCDEF';
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    if ($("#avg_score_per_modules").length) {
+      const avg_score_per_modules = document.getElementById('avg_score_per_modules');
+      $.get('/get_avg_score_per_modules', function (res) {
+
+        var labels = [];
+        var data = [];
+        var colors = [];
+
+        if (res) {
+          res.forEach(element => {
+            labels.push(element.title)
+            data.push(element.avg_score)
+            colors.push(getRandomColor())
+          });
+
+          new Chart(avg_score_per_modules, {
+            type: 'bar',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'Score',
+                data: data,
+                backgroundColor: colors,
+                borderColor: [],
+                borderWidth: 0,
+                fill: true, // 3: no fill
+                barPercentage: 0.5,
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              elements: {
+                line: {
+                  tension: 0.4,
+                }
+              },
+              scales: {
+                y: {
+                  border: {
+                    display: false
+                  },
+                  display: true,
+                  grid: {
+                    display: false,
+                    drawBorder: false,
+                    color: "rgba(255,255,255,.05)",
+                    zeroLineColor: "rgba(255,255,255,.05)",
+                  },
+                  ticks: {
+                    beginAtZero: true,
+                    autoSkip: true,
+                    maxTicksLimit: 5,
+                    fontSize: 10,
+                    color: "#6B778C",
+                    font: {
+                      size: 10,
+                    }
+                  }
+                },
+                x: {
+                  border: {
+                    display: false
+                  },
+                  display: true,
+                  grid: {
+                    display: false,
+                  },
+                  ticks: {
+                    beginAtZero: false,
+                    autoSkip: true,
+                    maxTicksLimit: 7,
+                    fontSize: 10,
+                    color: "#6B778C",
+                    font: {
+                      size: 10,
+                    }
+                  }
+                }
+              },
+              plugins: {
+                legend: {
+                  display: false,
+                },
+                tooltip: {
+                  callbacks: {
+
+                  }
+                }
+              }
+            }
+          });
+        }
+
+
+      });
+
+    }
+
+
     if ($.cookie('staradmin2-pro-banner') != "true") {
       document.querySelector('#proBanner').classList.add('d-flex');
       document.querySelector('.navbar').classList.remove('fixed-top');
