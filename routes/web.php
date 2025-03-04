@@ -51,6 +51,11 @@ Route::controller(AssessmentController::class)->middleware('auth')->group(functi
     Route::get('/module-assessment/{module_id}/{lesson_id}/{type}', 'module_assessment')->name('module_assessment');
     Route::get('/assessment/{module_id}/{lesson_id}/{assessment_id}', 'assessment')->name('assessment');
     Route::get('/view-assessment-result/{assessment_id}', 'view_assessment_result')->name('view_assessment_result');
+
+
+    // Assessment module
+    Route::get('/assessments', 'assessments')->name('assessments');
+
 });
 
 Route::controller(SurveyController::class)->middleware('auth')->group(function () {

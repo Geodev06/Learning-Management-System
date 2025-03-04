@@ -13,7 +13,6 @@ $questionNumber = 1; // Reset question number for each section
         @else
         <div class="col-md-2 d-flex bg-primary text-white">
             <h3 class="my-auto mx-auto"><b>{{ $questionNumber }}.</b> </h3> <!-- Dynamic numbering -->
-
         </div>
         @endif
         <div class="col-md-10">

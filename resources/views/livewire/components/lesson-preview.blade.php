@@ -102,7 +102,7 @@
 
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        Coding Ground
+                                        <x-pythoncompiler />
                                     </div>
                                 </div>
                             </div>

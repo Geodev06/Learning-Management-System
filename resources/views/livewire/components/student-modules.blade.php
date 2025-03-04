@@ -21,16 +21,35 @@
 
     <h4>My Modules</h4>
     @forelse($modules as $module)
-    <div class="col-lg-3">
-        <div class="card p-3 h-100 style=" width: 18rem;">
-            <img style="max-height: 100px;" src="https://www.reliservsolution.net/wp-content/uploads/2021/10/Substation-Automation-4.jpg" class="card-img-top" alt="...">
+    <div class="col-lg-3 mb-2">
+        <div class="card p-3 h-100 shadow-sm" style="background-color: #EDF3FC;">
 
             <div class="card-body">
+                <img src="{{ asset('assets/images/book.png') }}" alt="" srcset="" style="max-width: 50px; max-height:50px">
+
                 <p><b>{{ ucfirst($module->title) }}</b></p>
                 <p class="card-text text-ellipsis">{{ ucfirst($module->overview) }}</p>
 
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex">
+                        @if($module->v_flag)
+                        <span class="badge badge-success p-1 mx-1">Visual</span>
+                        @endif
+                        @if($module->k_flag)
+                        <span class="badge badge-info p-1 mx-1">Kinesthetic</span>
+                        @endif
+                        @if($module->a_flag)
+                        <span class="badge badge-danger p-1 mx-1">Auditory</span>
+                        @endif
+                        @if($module->r_flag)
+                        <span class="badge badge-dark p-1 mx-1">Reading and Writing</span>
+                        @endif
+                    </div>
+                </div>
+
             </div>
-            <button class="btn btn-primary" wire:click="redirect_learn('{{ encrypt($module->id) }}')">Learn</button>
+            <button type="button" class="btn btn-primary btn-rounded" wire:click="redirect_learn('{{ encrypt($module->id) }}')">Learn <i class="fa fa-arrow-circle-right float-end"></i>
+            </button>
         </div>
     </div>
     @empty

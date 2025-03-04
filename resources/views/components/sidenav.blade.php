@@ -17,8 +17,7 @@
             <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="{{ route('modules') }}">Modules</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Assessments</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Feedbacks</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('assessments') }}">Assessments</a></li>
                 </ul>
             </div>
         </li>

@@ -26,4 +26,9 @@ class AssessmentController extends Controller
 
         return view('pages.view_assessment_result', compact('assessment_id', 'module'));
     }
+
+    public function assessments()
+    {
+        return view('pages.assessments_module');
+    }
 }

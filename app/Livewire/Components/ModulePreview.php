@@ -49,6 +49,21 @@ class ModulePreview extends Component
             $student_module->created_by = Auth::user()->id;
             $student_module->save();
 
+            $name = base64_decode(Auth::user()->first_name) . ' ' . base64_decode(Auth::user()->last_name);
+
+            $notification_data = [
+                'type' => 'notification',
+                'title' => 'Enrollee',
+                'icon' => 'fas fa-bell',
+                'seen_flag' => 0,
+                'link' => '',
+                'message' =>  ucfirst($name) . ' has successfully enrolled in your course. [ ' . Module::find($this->id)->title . ' ]',
+                'receiver_id' => Module::find($this->id)->created_by,
+                'created_by' => Auth::user()->id
+            ];
+
+            $this->notify_users($notification_data);
+
             $this->dispatch('success', [
                 'title' => 'Success',
                 'message' => 'Successfully Enrolled.',
@@ -65,7 +80,7 @@ class ModulePreview extends Component
     public function render()
     {
         $module = Module::find($this->id);
-        $module_lessons = ModuleLesson::where('module_id',$this->id)->get();
+        $module_lessons = ModuleLesson::where('module_id', $this->id)->get();
 
         $author = User::find($module->created_by);
 

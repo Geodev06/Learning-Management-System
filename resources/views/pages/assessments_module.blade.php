@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ ucfirst($module->title) ?? '' }}</title>
+    <title>Assessments</title>
     @include('core.core_css')
 
     @livewireStyles
@@ -23,15 +23,9 @@
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="row">
-                        <h4 class="mb-3">Learning Module</h4>
-                        <div class="col-lg-12">
-                            <button onclick="window.history.back()" class="float-end btn btn-primary  mb-2">Back</button>
-                        </div>
+                        <h4 class="mb-3">Assessments</h4>
 
-                        <livewire:components.module-header id="{{ $module->id }}" />
 
-                        <livewire:components.lesson-preview module_id="{{ $module->id }}" lesson_id="{{ $lesson->id }} " />
-                  
                     </div>
                 </div>
                 <!-- content-wrapper ends -->

@@ -1,5 +1,5 @@
 <div class="col-lg-12">
-    <div class="card p-5 shadow-sm">
+    <div class="card p-5 shadow-sm" style="background-color: #EDF3FC;">
         <img style="max-height: 200px;" src="https://www.reliservsolution.net/wp-content/uploads/2021/10/Substation-Automation-4.jpg" class="card-img-top" alt="...">
         <div class="card-body">
             <h3><b>{{ ucfirst($module->title) }}</b></h3>
@@ -26,17 +26,17 @@
             </div>
             <hr>
             <div class="d-flex align-items-center">
-                <div class="border-left-1 border p-4 rounded text-center mx-2">
+                <div class="border-left-1 border p-4 rounded text-center mx-2  p-2 text-white" style="background-color: #524CFF;">
                     <p class="text-start">No. of Takers.</p>
                     <h1><b>10</b></h1>
                 </div>
 
-                <div class="border-left-1 border p-4 rounded text-center mx-2">
+                <div class="border-left-1 border p-4 rounded text-center mx-2 p-2 text-white" style="background-color: #524CFF;">
                     <p class="text-start">Average Student Score</p>
                     <h1><b>55%</b></h1>
                 </div>
 
-                <div class="border-left-1 border p-4 rounded text-center mx-2">
+                <div class="border-left-1 border p-4 rounded text-center mx-2  p-2 text-white" style="background-color: #524CFF;">
                     <p class="text-start">Passing Rate</p>
                     <h1><b>45%</b></h1>
                 </div>

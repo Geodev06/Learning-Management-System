@@ -2,8 +2,7 @@
     @forelse($modules as $module)
     <div class="col-sm-12 col-md-6 col-lg-3 mb-2">
 
-        <div class="card">
-
+        <div class="card h-100">
             <div class="card-body d-flex flex-column">
                 <div class="d-flex justify-content-between">
                     <h4>{{ ucfirst($module->title) }}</h4>

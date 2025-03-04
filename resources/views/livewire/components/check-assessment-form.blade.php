@@ -86,7 +86,7 @@
                                         @endif
 
                                         @if($assessment->type == 'HO')
-                                        <pre>
+                                        <pre id="textToCopy">
                                         {{ $question->user_answer }}
                                         </pre>
                                         @endif
@@ -97,8 +97,11 @@
                                         @if ($errors->has('answers.' . 'question_'.$question->id))
                                         <span class="text-danger font-12">Field Value is not Valid.</span>
                                         @endif
+
+
                                     </div>
                                 </div>
+
 
                             </form>
                         </div>
@@ -106,6 +109,16 @@
                 </div>
 
             </div>
+
+
+
+            @if($assessment->type == 'HO')
+            <button id="copyButton" class="btn btn-sm btn-primary">Copy Code</button>
+
+            <x-pythoncompiler />
+
+            @endif
+
             @php
             $questionNumber++; // Increment the question number
             @endphp
@@ -165,22 +178,25 @@
                                 <div class="d-flex justify-content-between">
                                     <div>
                                         <p class="">{{ ucfirst($assessment->creator) }} Answer:</p>
-                                      
+
                                         @if($assessment->type == 'HO')
                                         <pre>
                                         {{ $question->user_answer }}
                                         </pre>
 
+
                                         @else
-                                        
+
                                         @if($assessment->type == 'MC' || $assessment->type == 'I')
-                                       <p> {{ $question->user_answer }} </p>
+                                        <p> {{ $question->user_answer }} </p>
                                         <p>Correct answer : {{ $question->correct_answer }} </p>
                                         @else
                                         {{ $question->user_answer }}
                                         <p></p>
                                         @endif
                                         @endif
+
+
                                     </div>
 
                                 </div>

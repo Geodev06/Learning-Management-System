@@ -29,13 +29,22 @@
 
                 @endif
 
+                @if($type == 'HO')
+
+                <x-pythoncompiler />
+
+                @endif
+
                 @include('partials.assessment_buttons')
+
+
             </div>
         </div>
     </div>
 
     @assets
-    <script src="{{ asset('assets/js/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('assets/js/sweetalert2.all.min.js') }}"></script>\
+
     @endassets
 
     @script
