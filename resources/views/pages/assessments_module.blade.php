@@ -25,7 +25,7 @@
                     <div class="row">
                         <h4 class="mb-3">Assessments</h4>
 
-
+                        <livewire:tables.assessmenttable />
                     </div>
                 </div>
                 <!-- content-wrapper ends -->

@@ -585,6 +585,107 @@
 
     }
 
+    if ($("#activity_stats").length) {
+      const activity_stats = document.getElementById('activity_stats');
+      $.get('/api/students/stats', function (res) {
+
+        var modalities = res.data.modalities;
+
+
+        var auditory = parseFloat(modalities.Auditory.averageScore).toFixed(2);
+        var visual = parseFloat(modalities.Visual.averageScore).toFixed(2);
+        var kinesthetic = parseFloat(modalities.Kinesthetic.averageScore).toFixed(2);
+        var reading_and_writing = parseFloat(modalities['Reading & Writing'].averageScore).toFixed(2);
+        
+        
+        
+        
+        new Chart(activity_stats, {
+          type: 'bar',
+          data: {
+            labels: ["Auditory", "Kinesthetic", "Visual", "Reading and Writing"],
+            datasets: [{
+              label: 'Score',
+              data: [auditory, kinesthetic, visual, reading_and_writing],
+              backgroundColor: ["#060270", '#D05A2E', '#de1708', 'rgb(99, 137, 233)'],
+              borderColor: [],
+              borderWidth: 0,
+              fill: true, // 3: no fill
+              barPercentage: 0.5,
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            elements: {
+              line: {
+                tension: 0.4,
+              }
+            },
+            scales: {
+              y: {
+                border: {
+                  display: false
+                },
+                display: true,
+                grid: {
+                  display: false,
+                  drawBorder: false,
+                  color: "rgba(255,255,255,.05)",
+                  zeroLineColor: "rgba(255,255,255,.05)",
+                },
+                ticks: {
+                  beginAtZero: true,
+                  autoSkip: true,
+                  maxTicksLimit: 5,
+                  fontSize: 10,
+                  color: "#6B778C",
+                  font: {
+                    size: 10,
+                  }
+                }
+              },
+              x: {
+                border: {
+                  display: false
+                },
+                display: true,
+                grid: {
+                  display: false,
+                },
+                ticks: {
+                  beginAtZero: false,
+                  autoSkip: true,
+                  maxTicksLimit: 7,
+                  fontSize: 10,
+                  color: "#6B778C",
+                  font: {
+                    size: 10,
+                  }
+                }
+              }
+            },
+            plugins: {
+              legend: {
+                display: false,
+              },
+              tooltip: {
+                callbacks: {
+                  // Custom tooltip to display percentage
+                  label: function (tooltipItem) {
+                    var value = tooltipItem.raw;
+                    var percentage = (value / 100) * 100; // Assuming the score is out of 100
+                    return value + '%'; // Adds percentage sign
+                  }
+                }
+              }
+            }
+          }
+        });
+      });
+
+    }
+
     function getRandomColor() {
       var letters = '0123456789ABCDEF';
       var color = '#';

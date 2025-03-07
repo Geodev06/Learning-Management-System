@@ -20,11 +20,30 @@ class CheckAssessmentForm extends Component
     public $lesson_id, $module_id;
 
     public $answers = [];  // To hold 
+    public $modalities = [];
 
     public function mount($assessment_id)
     {
         $this->assessment_id = decrypt($assessment_id);
         $this->type = Assessment::find($this->assessment_id)->type;
+
+        $assessment = Assessment::find($this->assessment_id);
+
+        $module = Module::find($assessment->module_id);
+
+        $flags = [
+            'k_flag' => 'kinesthetic',
+            'a_flag' => 'auditory',
+            'v_flag' => 'visual',
+            'r_flag' => 'reading_and_writing',
+        ];
+
+        foreach ($flags as $flag => $modality) {
+            if ($module->$flag == 1) {
+                $this->modalities[$modality] = $modality;
+            }
+        }
+
     }
 
     public function submit()
@@ -98,6 +117,14 @@ class CheckAssessmentForm extends Component
             ];
 
             $this->notify_users($notification_data);
+
+
+
+            if (sizeof($this->modalities) > 0) {
+                foreach ($this->modalities as $modality => $val) {
+                    $this->send_feedback($this->modality[$val], $grade, Assessment::find($this->assessment_id)->created_by);
+                }
+            }
 
             DB::commit();
 

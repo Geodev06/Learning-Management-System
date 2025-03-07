@@ -23,8 +23,8 @@
                 <td>
                     <div>
                         <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                            <p class="text-success">79%</p>
-                            <p>85/162</p>
+                            <p class="text-success">{{$item->progress}}%</p>
+                            <p>{{ $item->user_assessments }} /{{ $total_activity }}</p>
                         </div>
                         <div class="progress progress-md">
                             <div class="progress-bar bg-success" role="progressbar" style="width: 85%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>

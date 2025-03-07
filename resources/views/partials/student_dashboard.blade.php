@@ -127,6 +127,25 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-6 grid-margin stretch-card">
+                            <div class="card card-rounded">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <div>
+                                                    <h4 class="card-title card-title-dash">Performance per Modalities Report</h4>
+                                                </div>
+                                            </div>
+                                            <div class="mt-3">
+                                                <canvas id="activity_stats"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

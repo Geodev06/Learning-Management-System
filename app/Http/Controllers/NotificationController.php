@@ -15,7 +15,7 @@ class NotificationController extends Controller
             ->where('receiver_id', Auth::user()->id)
             ->orderBy('created_at', 'desc')
             ->orderBy('seen_flag', 'asc')
-            ->limit(10)
+            ->limit(6)
             ->get();
 
         // Extract unseen count from the first result or set it to 0 if no results

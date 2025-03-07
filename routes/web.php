@@ -8,6 +8,7 @@ use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\StudentApiController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SurveyController;
 use Illuminate\Support\Facades\Route;
@@ -31,15 +32,14 @@ Route::controller(GuestController::class)->group(function () {
 });
 
 Route::controller(PageController::class)->middleware('auth')->group(function () {
-    Route::get('/dashboard', 'dashboard')->name('dashboard','fl');
+    Route::get('/dashboard', 'dashboard')->name('dashboard', 'fl');
     Route::get('/modules', 'modules')->name('modules');
     Route::get('/module-lessons/{module_id}', 'module_lessons')->name('module_lessons');
     Route::get('/manage_lessons/{module_id}/{lesson_id}', 'manage_lessons')->name('manage_lessons');
     Route::get('/manage_lessons/activities/{module_id}/{lesson_id}/{type}', 'manage_activities')->name('manage_activities');
-
 });
 
-Route::controller(StudentController::class)->middleware('auth','fl')->group(function () {
+Route::controller(StudentController::class)->middleware('auth', 'fl')->group(function () {
     Route::get('/learn', 'learn')->name('learn');
     Route::get('/my-modules', 'my_modules')->name('my_modules');
     Route::get('/my-modules/learn/{module_id}', 'learn_module')->name('learn_module');
@@ -55,7 +55,6 @@ Route::controller(AssessmentController::class)->middleware('auth')->group(functi
 
     // Assessment module
     Route::get('/assessments', 'assessments')->name('assessments');
-
 });
 
 Route::controller(SurveyController::class)->middleware('auth')->group(function () {
@@ -68,19 +67,22 @@ Route::controller(ChartController::class)->middleware('auth')->group(function ()
 });
 Route::controller(FileUploadController::class)->middleware('auth')->group(function () {
     Route::post('/upload', 'upload')->name('upload');
-    Route::get('/download/{filename}', function ($file)  {
+    Route::get('/download/{filename}', function ($file) {
         $filePath = public_path('files/' . $file);  // Files in public/files
-    
+
         if (file_exists($filePath)) {
             return response()->download($filePath);
         } else {
             abort(404);  // Return 404 if file not found
         }
     })->name('download');
-
 });
 
 Route::controller(NotificationController::class)->middleware('auth')->group(function () {
     Route::get('/notifications', 'notifications')->name('notifications');
+});
 
+Route::controller(StudentApiController::class)->middleware('auth')->group(function () {
+    Route::get('/api/students/recommend', 'sendRecommendRequest')->name('api.recommend');
+    Route::get('/api/students/stats',  'sendStudentStatsRequest')->name('api.get_stats');
 });

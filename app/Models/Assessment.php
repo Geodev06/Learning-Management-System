@@ -22,4 +22,9 @@ class Assessment extends Model
         'checked_flag',
         'checker_id'
     ];
+
+    public function userInfo()
+    {
+        return $this->hasOne(User::class, 'id', 'created_by');
+    }
 }

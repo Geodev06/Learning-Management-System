@@ -26,11 +26,28 @@ class AssessmentForm extends Component
     public $has_questions_e = false;
     public $has_questions_ho = false;
 
+    public $modalities = [];
+
     public function mount($module_id, $lesson_id, $type)
     {
         $this->module_id = decrypt($module_id);
         $this->lesson_id = decrypt($lesson_id);
         $this->type = decrypt($type);
+
+        $module = Module::find($this->module_id);
+
+        $flags = [
+            'k_flag' => 'kinesthetic',
+            'a_flag' => 'auditory',
+            'v_flag' => 'visual',
+            'r_flag' => 'reading_and_writing',
+        ];
+
+        foreach ($flags as $flag => $modality) {
+            if ($module->$flag == 1) {
+                $this->modalities[$modality] = $modality;
+            }
+        }
     }
 
     public function submit()
@@ -136,6 +153,11 @@ class AssessmentForm extends Component
 
                     $this->notify_users($notification_data);
 
+                    if (sizeof($this->modalities) > 0) {
+                        foreach ($this->modalities as $modality => $val) {
+                            $this->send_feedback($this->modality[$val], $grade);
+                        }
+                    }
 
                     DB::commit();
 
@@ -245,6 +267,13 @@ class AssessmentForm extends Component
                     ];
 
                     $this->notify_users($notification_data);
+
+
+                    if (sizeof($this->modalities) > 0) {
+                        foreach ($this->modalities as $modality => $val) {
+                            $this->send_feedback($this->modality[$val], $grade);
+                        }
+                    }
 
                     DB::commit();
 
