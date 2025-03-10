@@ -8,6 +8,7 @@ use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentApiController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SurveyController;
@@ -65,6 +66,7 @@ Route::controller(SurveyController::class)->middleware('auth')->group(function (
 Route::controller(ChartController::class)->middleware('auth')->group(function () {
     Route::get('/get_avg_score_per_modules', 'get_avg_score_per_modules')->name('get_avg_score_per_modules');
 });
+
 Route::controller(FileUploadController::class)->middleware('auth')->group(function () {
     Route::post('/upload', 'upload')->name('upload');
     Route::get('/download/{filename}', function ($file) {
@@ -76,10 +78,17 @@ Route::controller(FileUploadController::class)->middleware('auth')->group(functi
             abort(404);  // Return 404 if file not found
         }
     })->name('download');
+
+    Route::post('/profile_upload', 'profile_upload')->name('profile_upload');
+
 });
 
 Route::controller(NotificationController::class)->middleware('auth')->group(function () {
     Route::get('/notifications', 'notifications')->name('notifications');
+});
+
+Route::controller(ProfileController::class)->middleware('auth')->group(function () {
+    Route::get('/profile', 'profile')->name('profile');
 });
 
 Route::controller(StudentApiController::class)->middleware('auth')->group(function () {

@@ -187,7 +187,7 @@ class FileUploadController extends Controller
                         'file.mimes' => 'Only video file types (mp4, avi, mov, mkv, webm) are allowed.',
                         'file.max' => 'The file size must not exceed 12MB.',
                     ]);
-                    
+
                     try {
                         DB::beginTransaction();
 
@@ -444,5 +444,40 @@ class FileUploadController extends Controller
 
         // If no file or text input provided
 
+    }
+
+    public function profile_upload(Request $request)
+    {
+
+        $request->validate([
+            'file' => 'required|mimes:jpeg,jpg,png,gif|max:2048', // Adjust the mime types and max size as needed
+        ]);
+    
+        if ($request->hasFile('file')) {
+            // Get the uploaded file
+            $file = $request->file('file');
+    
+            // Define the file name and save it in the 'public' folder
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = 'uploads/profile_images/' . $fileName; // Define your folder path in 'public'
+    
+            // Move the file to the 'public' folder (public/storage folder)
+            $file->move(public_path('uploads/profile_images'), $fileName);
+    
+            // Optionally, save the file path in the database
+            $user = auth()->user(); // Assuming the user is authenticated
+            $user->profile = $filePath; // Save the file path in the profile_image column
+            $user->save();
+    
+            return response()->json([
+                'success' => true,
+                'file_path' => $filePath
+            ]);
+        }
+    
+        return response()->json([
+            'success' => false,
+            'message' => 'No file uploaded'
+        ]);
     }
 }

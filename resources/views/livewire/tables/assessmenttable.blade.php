@@ -30,7 +30,7 @@
                             <th> Date Submitted </th>
                             <th> Type </th>
                             <th> Status </th>
-                            <th> Score </th>
+                            <th> Grade </th>
                             <th> Action </th>
 
                         </tr>

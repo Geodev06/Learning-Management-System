@@ -39,6 +39,7 @@ class EnrolleesTable extends Component
 
         foreach ($enrollees as $student) {
             $student->student_info = User::where('id', $student->created_by)->first();
+            
             $student->progress = (Assessment::where([
                 'module_id'=> $this->module_id,
                 'created_by' => $student->created_by

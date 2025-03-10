@@ -35,7 +35,9 @@
             </a>
             <div class="collapse" id="ui-basic2">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Portal</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="">Site Settings</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('profile') }}">Profile</a></li>
+
                 </ul>
             </div>
         </li>

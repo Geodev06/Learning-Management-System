@@ -3,7 +3,7 @@
         <div class="card-body">
             <h4>{{ ucfirst($module->title) }}</h4>
             <p>{{ ucfirst($module->overview) }}</p>
-            <p class="text-primary"> Overall Progress 12%</p>
+            <p class="text-primary"> <b>Overall Progress {{ number_format($progress, 2) }}%</b></p>
         </div>
     </div>
 </div>
