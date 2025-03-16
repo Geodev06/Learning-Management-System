@@ -2,6 +2,7 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
+                @if(sizeof($assessments) > 0)
                 <div>
                     <h4 class="card-title">Assessments Feedbacks</h4>
                     <div class="form-group mx- 2">
@@ -14,6 +15,7 @@
                         </select>
                     </div>
                 </div>
+                @endif
                 <form class="forms-sample material-form">
                     <div class="form-group">
                         <input type="text" required="required" wire:model.live="search_field" class="" autocomplete="off">
@@ -23,7 +25,7 @@
             </div>
             </p>
             <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped  table-bordered">
                     <thead>
                         <tr>
                             <th> Name </th>

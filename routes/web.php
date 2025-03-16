@@ -3,6 +3,7 @@
 use App\Events\MessageSent;
 use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\ChartController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\GuestController;
@@ -95,3 +96,15 @@ Route::controller(StudentApiController::class)->middleware('auth')->group(functi
     Route::get('/api/students/recommend', 'sendRecommendRequest')->name('api.recommend');
     Route::get('/api/students/stats',  'sendStudentStatsRequest')->name('api.get_stats');
 });
+
+Route::controller(ChatController::class)->middleware('auth')->group(function () {
+    
+    Route::get('/inbox', 'inbox')->name('inbox');
+
+    Route::get('/get-message', 'get_message')->name('get_message');
+
+    Route::post('/send-message', 'send_message')->name('send_message');
+
+
+});
+

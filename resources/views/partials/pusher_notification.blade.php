@@ -23,11 +23,43 @@
     }
 
     render_notifications()
-    
+
+
+    function get_message(receiver_id) {
+        $.get('/get-message', {
+            receiver_id: receiver_id
+        }, function(res) {
+            $('.message-container').show();
+            $('.message-section').html(res);
+
+            $('.click_lbl').hide();
+
+
+            // Ensure the messages are scrolled to the bottom after loading
+            scrollToBottom();
+        });
+    }
+
+
+    // Scroll to the bottom of the message section
+    function scrollToBottom() {
+        var messageSection = document.querySelector('.message-section');
+        messageSection.scrollTop = messageSection.scrollHeight;
+    }
+
     channel.bind('notify-users', function(data) {
 
-        console.log(data)
-        render_notifications()
-    });
+        if (data.message == 'notify-users') {
+            render_notifications()
+        }
 
+        if (data.message == 'get_message') {
+
+            if ($('#message_form')[0].dataset.receiver_id) {
+
+                get_message($('#message_form')[0].dataset.receiver_id);
+
+            }
+        }
+    });
 </script>

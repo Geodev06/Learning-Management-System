@@ -35,34 +35,10 @@
                             <p class="fw-light small-text mb-0">This is a Bundle featuring 16 unique dashboards</p>
                         </div>
                     </a>
-                    <a class="dropdown-item preview-item">
-                        <div class="preview-item-content flex-grow py-2">
-                            <p class="preview-subject ellipsis fw-medium text-dark">Angular Bundle</p>
-                            <p class="fw-light small-text mb-0">Everything you’ll ever need for your Angular projects</p>
-                        </div>
-                    </a>
-                    <a class="dropdown-item preview-item">
-                        <div class="preview-item-content flex-grow py-2">
-                            <p class="preview-subject ellipsis fw-medium text-dark">VUE Bundle</p>
-                            <p class="fw-light small-text mb-0">Bundle of 6 Premium Vue Admin Dashboard</p>
-                        </div>
-                    </a>
-                    <a class="dropdown-item preview-item">
-                        <div class="preview-item-content flex-grow py-2">
-                            <p class="preview-subject ellipsis fw-medium text-dark">React Bundle</p>
-                            <p class="fw-light small-text mb-0">Bundle of 8 Premium React Admin Dashboard</p>
-                        </div>
-                    </a>
+                 
                 </div>
             </li>
-            <li class="nav-item d-none d-lg-block">
-                <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker">
-                    <span class="input-group-addon input-group-prepend border-right">
-                        <span class="icon-calendar input-group-text calendar-icon"></span>
-                    </span>
-                    <input type="text" class="form-control">
-                </div>
-            </li>
+            
             <li class="nav-item">
                 <form class="search-form" action="#">
                     <i class="icon-search"></i>
@@ -85,13 +61,13 @@
                 <a class="nav-link count-indicator" id="countDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="icon-mail icon-lg"></i>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="countDropdown">
-                    <a class="dropdown-item py-3">
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list message-list pb-0" aria-labelledby="countDropdown">
+                    <a class="dropdown-item py-3" href="{{ route('inbox') }}">
                         <p class="mb-0 fw-medium float-start">You have 7 unread mails </p>
                         <span class="badge badge-pill badge-primary float-end">View all</span>
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item preview-item">
+                    <a class="dropdown-item preview-item message-item">
                         <div class="preview-thumbnail">
                             <img src="{{ asset('assets/images/faces/face10.jpg') }}" alt="image" class="img-sm profile-pic">
                         </div>
@@ -100,24 +76,7 @@
                             <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
                         </div>
                     </a>
-                    <a class="dropdown-item preview-item">
-                        <div class="preview-thumbnail">
-                            <img src="{{ asset('assets/images/faces/face12.jpg') }}" alt="image" class="img-sm profile-pic">
-                        </div>
-                        <div class="preview-item-content flex-grow py-2">
-                            <p class="preview-subject ellipsis fw-medium text-dark">David Grey </p>
-                            <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
-                        </div>
-                    </a>
-                    <a class="dropdown-item preview-item">
-                        <div class="preview-thumbnail">
-                            <img src="{{ asset('assets/images/faces/face1.jpg') }}" alt="image" class="img-sm profile-pic">
-                        </div>
-                        <div class="preview-item-content flex-grow py-2">
-                            <p class="preview-subject ellipsis fw-medium text-dark">Travis Jenkins </p>
-                            <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
-                        </div>
-                    </a>
+                   
                 </div>
             </li>
             <livewire:components.nav-profile />
@@ -128,3 +87,7 @@
     </div>
 </nav>
 @include('partials.pusher_notification')
+
+
+
+
