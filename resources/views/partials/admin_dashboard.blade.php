@@ -70,6 +70,18 @@
 
 
             </div>
+
+            <div class="tab-pane fade show " id="learners" role="tabpanel" aria-labelledby="learners">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 mb-2">
+                        <livewire:components.learnerlist lazy="on-load" />
+                    </div>
+
+
+                </div>
+
+
+            </div>
         </div>
     </div>
 </div>

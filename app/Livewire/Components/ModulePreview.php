@@ -70,6 +70,7 @@ class ModulePreview extends Component
                 'status' => 'success'
             ]);
             $this->is_added = true;
+
             DB::commit();
         } catch (\Throwable $th) {
             //throw $th;

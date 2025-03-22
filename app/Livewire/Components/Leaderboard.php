@@ -10,6 +10,12 @@ use Livewire\Component;
 
 class Leaderboard extends Component
 {
+
+    public function profile_preview($id)
+    {
+        $this->redirect(route('profile_preview', encrypt($id)));
+    }
+
     public function render()
     {
 
@@ -32,9 +38,9 @@ class Leaderboard extends Component
 
             foreach ($tops as $item) {
                 $user = User::find($item->created_by);
+                $item->id = $user->id;
                 $item->full_name =  base64_decode($user->first_name) . ' ' . base64_decode($user->middle_name) . ' ' . base64_decode($user->last_name);
             }
-            
         } else {
             $tops = collect(); // Return an empty collection instead of an array for consistency
         }

@@ -79,6 +79,9 @@
                 title: data[0].title,
                 text: data[0].message,
                 icon: data[0].status
+            }).then(() => {
+               window.location.href = "{{ route('learn_module', encrypt($id)) }} "
+
             });
 
 

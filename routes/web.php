@@ -86,10 +86,18 @@ Route::controller(FileUploadController::class)->middleware('auth')->group(functi
 
 Route::controller(NotificationController::class)->middleware('auth')->group(function () {
     Route::get('/notifications', 'notifications')->name('notifications');
+    Route::get('/notifications-view', 'notifications_view')->name('notifications_view');
+
+    Route::post('/seen', 'seen')->name('seen');
+    Route::post('/delete-notification', 'delete')->name('delete_notification');
+
+
 });
 
 Route::controller(ProfileController::class)->middleware('auth')->group(function () {
     Route::get('/profile', 'profile')->name('profile');
+    Route::get('/profile/view/{id}', 'profile_preview')->name('profile_preview');
+
 });
 
 Route::controller(StudentApiController::class)->middleware('auth')->group(function () {

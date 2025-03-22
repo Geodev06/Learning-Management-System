@@ -21,6 +21,12 @@ class EnrolleesTable extends Component
     {
         $this->module_id = $module_id;
     }
+
+    public function profile_preview($id)
+    {
+        $this->redirect(route('profile_preview', encrypt($id)));
+    }
+    
     public function render()
     {
         $enrollees = StudentModule::where('module_id', $this->module_id)->orderBy('created_at', 'desc')->paginate(10);

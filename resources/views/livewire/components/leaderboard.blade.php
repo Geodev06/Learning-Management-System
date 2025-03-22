@@ -15,7 +15,7 @@
                                 <div class="d-flex">
                                     <img class="img-sm rounded-10" src="https://static.vecteezy.com/system/resources/previews/000/350/111/original/vector-male-student-icon.jpg" alt="profile">
                                     <div class="wrapper ms-3">
-                                        <p class="ms-1 mb-1 fw-bold">{{ $user->full_name ?? '' }}</p>
+                                        <p style="cursor: pointer;" class="user-link ms-1 mb-1 fw-bold" wire:click="profile_preview({{ $user->id}} )">{{ $user->full_name ?? '' }}</p>
                                         <small class="text-muted mb-0">{{ number_format($user->points, 2) }} pts.</small>
                                     </div>
                                 </div>

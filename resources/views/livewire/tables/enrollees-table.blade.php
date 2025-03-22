@@ -16,7 +16,7 @@
                     <div class="d-flex align-items-center">
                         <img class="img-sm rounded-10" src="https://static.vecteezy.com/system/resources/previews/000/350/111/original/vector-male-student-icon.jpg" alt="profile">
                         <div class="wrapper ms-3">
-                            <p class="ms-1 mb-1 fw-light">{{ base64_decode($item->student_info->first_name) }} {{ base64_decode($item->student_info->last_name) }}</p>
+                            <p class="ms-1 mb-1 fw-light" style="cursor: pointer;" wire:click="profile_preview({{ $item->id}})">{{ base64_decode($item->student_info->first_name) }} {{ base64_decode($item->student_info->last_name) }}</p>
                         </div>
                     </div>
                 </td>
