@@ -18,7 +18,7 @@
         <ul class="navbar-nav">
             <li class="nav-item fw-semibold d-none d-lg-block ms-0">
                 <h1 class="welcome-text">Welcome Back!, <span class="text-black fw-bold"> {{ base64_decode(Auth::user()->first_name) ?? '' }} {{ base64_decode(Auth::user()->middle_name) ?? '' }} {{ base64_decode(Auth::user()->last_name) ?? '' }}</span></h1>
-                <h3 class="welcome-sub-text">{{ Auth::user()->org_code ?? '' }} </h3>
+                <h3 class="welcome-sub-text text-primary">{{ App\Models\ParamOrganization::where('org_code', Auth::user()->org_code)->first()['name'] ?? '' }} </h3>
             </li>
         </ul>
         <ul class="navbar-nav ms-auto">

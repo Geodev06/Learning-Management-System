@@ -27,8 +27,16 @@
                         <div class="col-lg-12">
                             <button onclick="window.history.back()" class="float-end btn btn-primary  mb-2">Back</button>
                         </div>
+
+
                         <livewire:components.module-preview id="{{ $module->id }} " />
 
+                        <div class="d-flex">
+                            @forelse($module->access as $access)
+                            <p class="float-end m-3 mx-1">{{ $access->name ?? '' }} | </p>
+                            @empty
+                            @endforelse
+                        </div>
                     </div>
                 </div>
                 <!-- content-wrapper ends -->

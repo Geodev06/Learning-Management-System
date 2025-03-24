@@ -7,6 +7,7 @@ use App\Models\Assessment;
 use App\Models\LessonQuestion;
 use App\Models\Module;
 use App\Models\ModuleLesson;
+use App\Models\ParamOrganization;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,14 +20,14 @@ class PageController extends Controller
 
         $data = [];
 
-        if(Auth::user()->role == 'ADMIN') {
-            $data['no_of_users'] = User::where('role','!=','ADMIN')->count();
+        if (Auth::user()->role == 'ADMIN') {
+            $data['no_of_users'] = User::where('role', '!=', 'ADMIN')->count();
             $data['no_of_modules'] = Module::count();
             $data['no_of_activities'] = LessonQuestion::distinct('module_id', 'lesson_id')->count();
             $data['no_of_student_submission_today'] = Assessment::whereDate('created_at', now()->toDateString())->count();
         }
 
-        if(Auth::user()->role == 'TEACHER') {
+        if (Auth::user()->role == 'TEACHER') {
             $data['no_of_modules'] = Module::where('created_by', Auth::user()->id)->count();
         }
 
@@ -44,9 +45,12 @@ class PageController extends Controller
     public function module_lessons($module_id)
     {
         $module_id = base64_decode($module_id);
-        $module = Module::find($module_id);
+        $module = Module::with('access')->find($module_id);
         $lessons = ModuleLesson::where('module_id', $module_id)->get();
-        return view('pages.module_lessons', compact('lessons', 'module'));
+        $orgs = ParamOrganization::all();
+
+        $saved_orgs = array_column($module->access->toArray(), 'org_code');
+        return view('pages.module_lessons', compact('lessons', 'module', 'orgs', 'saved_orgs'));
     }
 
     public function manage_lessons($module_id, $lesson_id)

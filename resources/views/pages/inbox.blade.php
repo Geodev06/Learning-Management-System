@@ -21,8 +21,6 @@
             display: none;
             /* This will hide the scrollbar */
         }
-
-        
     </style>
 </head>
 
@@ -39,8 +37,50 @@
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="row">
-                        <h4>Inbox</h4>
+                        <h4 class="">Inbox</h4>
+                        <div class="col-lg-9">
+                            <div class="d-flex flex-column">
 
+                                <div class="card message-container" style="display: none;">
+                                    <div class="card-body ">
+                                        <h4 class="receiver_name fw-bold">
+                                            @if($receiver_param)
+                                            {{ ucfirst(base64_decode($receiver_param->first_name)) }} {{ ucfirst(base64_decode($receiver_param->last_name)) }}
+                                            @endif
+                                        </h4>
+                                        <p>Online</p>
+
+                                        <div class="message-section" style="max-height: 600px; overflow-y: auto; overflow-x: hidden;">
+                                            <!-- automatically scrolldonw -->
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="bg-white">
+                                        <form class="forms-sample material-form d-flex align-items-center" id="message_form" data-receiver_id="">
+                                            <div class="form-group w-100 mx-4">
+                                                @csrf
+                                                <p class="error text-danger font-12"></p>
+
+                                                <input type="text" required="required" name="message" id="message" class=" text-primary" autocomplete="off">
+                                                <label for="input" class="control-label">Your message here</label><i class="bar"></i>
+                                            </div>
+
+                                            <div class="button-container mx-2">
+                                                <button type="submit" class="btn btn-rounded btn-primary" id="send_button" disabled>
+                                                    <span>Send</span>
+                                                </button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <p class="click_lbl ">Click person to message</p>
+
+                            </div>
+                        </div>
                         <div class="col-lg-3">
                             <div class="d-flex flex-column user-list">
 
@@ -62,27 +102,34 @@
                                 </div>
 
                                 @forelse($users as $user)
-                                <div class="card mb-2 user" style="cursor: pointer;" data-id="{{ $user->id }}" data-name="{{ base64_decode($user->first_name) }} {{ base64_decode($user->last_name) }}">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-center">
-                                            <img class="img-xs rounded-circle" src="{{ $user->profile ?? 'https://cdn-icons-png.flaticon.com/512/149/149071.png' }}" alt="Profile image">
-                                            <div class="mx-2">
-                                                <div>
-                                                    <p class="m-0"><b>{{ base64_decode($user->first_name) }} {{ base64_decode($user->last_name) }}</b></p>
-                                                    <p class="m-0">Online</p>
+                                <div class="card mb-2 " style="cursor: pointer;">
+                                    <div class="card-body ">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="d-flex align-items-center">
+                                                <img class="img-xs rounded-circle" src="{{ $user->profile ?  asset($user->profile) :'https://cdn-icons-png.flaticon.com/512/149/149071.png' }}" alt="Profile image">
+                                                <div class="mx-2 user" data-id="{{ $user->id }}" data-name="{{ base64_decode($user->first_name) }} {{ base64_decode($user->last_name) }}">
+                                                    <div>
+                                                        <p class="m-0 mx-2"><b>{{ base64_decode($user->first_name) }} {{ base64_decode($user->last_name) }}</b></p>
+                                                        <div class="d-flex align-items-center">
+                                                            <p class="font-12 m-0  mx-2">{{ $user->role }} </p> [
+                                                            <p class="font-12 m-0 text-muted">{{ $user->org_code ?? 'No Org' }} </p>]
 
-                                                    @if($user->unseen > 0)
-                                                    <div class="d-flex m-0">
-                                                    <span class="badge badge-danger font-12">{{ $user->unseen }} </span> <p class="mx-3 m-0">New Message!</p>
+                                                        </div>
+
+                                                        @if($user->unseen > 0)
+                                                        <div class="d-flex m-0">
+                                                            <span class="badge badge-danger font-12">{{ $user->unseen }} </span>
+                                                            <p class="mx-3 m-0">New Message!</p>
+                                                        </div>
+
+                                                        @else
+
+                                                        @endif
                                                     </div>
-
-                                                    @else
-
-                                                    @endif
                                                 </div>
-
-
                                             </div>
+
+                                            <button class="btn btn-sm btn-outline-primary btn-profile" data-id="{{ encrypt($user->id) }}">Profile</button>
                                         </div>
                                     </div>
                                 </div>
@@ -97,45 +144,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-9">
-                            <div class="d-flex flex-column">
 
-                                <div class="card message-container" style="display: none;">
-                                    <div class="card-body " >
-                                        <h4 class="receiver_name fw-bold"></h4>
-                                        <p>Online</p>
-
-                                        <div class="message-section" style="max-height: 600px; overflow-y: auto; overflow-x: hidden;">
-                                            <!-- automatically scrolldonw -->
-                                        </div>
-
-
-                                    </div>
-
-                                    <div class="bg-white">
-                                        <form class="forms-sample material-form d-flex align-items-center" id="message_form" data-receiver_id="">
-                                            <div class="form-group w-100 mx-4">
-                                                @csrf
-                                            <p class="error text-danger font-12"></p>
-
-                                                <input type="text" required="required" name="message" id="message" class=" text-primary" autocomplete="off">
-                                                <label for="input" class="control-label">Your message here</label><i class="bar"></i>
-                                            </div>
-
-                                            <div class="button-container mx-2">
-                                                <button type="submit" class="btn btn-rounded btn-primary" id="send_button" disabled>
-                                                    <span>Send</span>
-                                                </button>
-                                            </div>
-
-                                        </form>
-                                    </div>
-                                </div>
-
-                                <p class="click_lbl">Click person to message</p>
-
-                            </div>
-                        </div>
 
                     </div>
                 </div>
@@ -153,11 +162,11 @@
 </body>
 @include('core.core_js')
 
-
 <script>
     $(document).ready(function() {
         // Function to get messages and display them
-   
+
+
 
         // Trigger when a user is clicked
         $('.user-list').on('click', '.user', function(e) {
@@ -170,6 +179,15 @@
 
             // Fetch and display messages for the clicked user
             get_message(receiver_id);
+        });
+
+        $('.user-list').on('click', '.btn-profile', function(e) {
+            var user_id = $(this)[0].dataset.id;
+
+            var link = "{{ route('profile_preview', ':id' ) }}"
+
+            window.location.href = link.replace(":id", user_id)
+
         });
 
         // Handle the typing event (enabling the send button)
@@ -218,6 +236,13 @@
         });
     });
 </script>
+
+@if($receiver_param)
+<script>
+    $('#message_form').attr('data-receiver_id', "{{ $receiver_param->id }}")
+    get_message("{{ $receiver_param->id }}");
+</script>
+@endif
 @include('partials.pusher_notification')
 
 @livewireScripts

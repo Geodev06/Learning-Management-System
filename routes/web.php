@@ -7,6 +7,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\GuestController;
+use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
@@ -53,10 +54,13 @@ Route::controller(AssessmentController::class)->middleware('auth')->group(functi
     Route::get('/module-assessment/{module_id}/{lesson_id}/{type}', 'module_assessment')->name('module_assessment');
     Route::get('/assessment/{module_id}/{lesson_id}/{assessment_id}', 'assessment')->name('assessment');
     Route::get('/view-assessment-result/{assessment_id}', 'view_assessment_result')->name('view_assessment_result');
-
-
     // Assessment module
     Route::get('/assessments', 'assessments')->name('assessments');
+});
+
+Route::controller(ModuleController::class)->middleware('auth')->group(function () {
+    Route::post('/save-module-access/{module_id}', 'save_module_access')->name('save_module_access');
+
 });
 
 Route::controller(SurveyController::class)->middleware('auth')->group(function () {
@@ -81,6 +85,8 @@ Route::controller(FileUploadController::class)->middleware('auth')->group(functi
     })->name('download');
 
     Route::post('/profile_upload', 'profile_upload')->name('profile_upload');
+    Route::post('/module_bg_upload', 'module_bg_upload')->name('module_bg_upload');
+
 
 });
 
@@ -107,7 +113,7 @@ Route::controller(StudentApiController::class)->middleware('auth')->group(functi
 
 Route::controller(ChatController::class)->middleware('auth')->group(function () {
     
-    Route::get('/inbox', 'inbox')->name('inbox');
+    Route::get('/inbox/{id?}', 'inbox')->name('inbox');
 
     Route::get('/get-message', 'get_message')->name('get_message');
 

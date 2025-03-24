@@ -30405,3 +30405,11 @@ dl li {
   background-repeat: no-repeat;
   background-position: right;
 }
+
+.select2-selection__choice {
+  padding: 8px !important;
+}
+.select2-selection__rendered {
+  padding: 8px !important;
+
+}

@@ -1,11 +1,12 @@
 <div class="col-lg-12">
     <div class="card p-5 shadow-sm" style="background-color: #EDF3FC;">
-        <img style="max-height: 200px;" src="https://www.reliservsolution.net/wp-content/uploads/2021/10/Substation-Automation-4.jpg" class="card-img-top" alt="...">
         <div class="card-body">
             <h3><b>{{ ucfirst($module->title) }}</b></h3>
-            <p class="card-text text-ellipsis">{{ ucfirst($module->overview) }}</p>
+            <h5 class="mt-3">About</h5>
+            <p class="card-text text-ellipsis mb-4">{{ ucfirst($module->overview) }}</p>
             <p class="mb-0"><b>Date Created :</b> {{ $module->created_at->format('F d, Y') }}</p>
             <p><b>Author :</b> {{ $module->author ?? '' }}</p>
+
 
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex">
@@ -25,6 +26,8 @@
                 <p>No. of Lessons <b>{{ $module_lessons->count() }}</b></p>
             </div>
             <hr>
+           
+      
             <div class="d-flex align-items-center">
                 <div class="border-left-1 border p-4 rounded text-center mx-2  p-2 text-white" style="background-color: #524CFF;">
                     <p class="text-start">No. of Takers.</p>
@@ -80,7 +83,7 @@
                 text: data[0].message,
                 icon: data[0].status
             }).then(() => {
-               window.location.href = "{{ route('learn_module', encrypt($id)) }} "
+                window.location.href = "{{ route('learn_module', encrypt($id)) }} "
 
             });
 

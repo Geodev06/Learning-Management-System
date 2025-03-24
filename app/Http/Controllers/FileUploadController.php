@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LessonAttachment;
+use App\Models\Module;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -472,6 +473,41 @@ class FileUploadController extends Controller
             return response()->json([
                 'success' => true,
                 'file_path' => $filePath
+            ]);
+        }
+    
+        return response()->json([
+            'success' => false,
+            'message' => 'No file uploaded'
+        ]);
+    }
+
+    public function module_bg_upload(Request $request)
+    {
+
+        $request->validate([
+            'file' => 'required|mimes:jpeg,jpg,png,gif|max:2048', // Adjust the mime types and max size as needed
+        ]);
+    
+        if ($request->hasFile('file')) {
+            // Get the uploaded file
+            $file = $request->file('file');
+    
+            // Define the file name and save it in the 'public' folder
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = 'uploads/module_bg/' . $fileName; // Define your folder path in 'public'
+    
+            // Move the file to the 'public' folder (public/storage folder)
+            $file->move(public_path('uploads/module_bg'), $fileName);
+    
+
+            Module::find($request->module_id)->update([
+                'bg_image' => $filePath
+            ]);
+    
+            return response()->json([
+                'success' => true,
+                'file_path' =>  $filePath
             ]);
         }
     

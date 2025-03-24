@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Components;
 
+use App\Models\ParamOrganization;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +13,7 @@ use Livewire\Component;
 class Personalinformation extends Component
 {
 
-    public $first_name, $middle_name, $last_name, $gender;
+    public $first_name, $middle_name, $last_name, $gender, $org_code;
 
     public function mount()
     {
@@ -20,6 +21,10 @@ class Personalinformation extends Component
         $this->middle_name = base64_decode(Auth::user()->middle_name);
         $this->last_name = base64_decode(Auth::user()->last_name);
         $this->gender = Auth::user()->gender;
+
+        if(Auth::user()->org_code != '' OR Auth::user()->org_code != null) {
+            $this->org_code = Auth::user()->org_code;
+        }
 
     }
 
@@ -32,7 +37,8 @@ class Personalinformation extends Component
             'first_name'    => 'required|string|regex:/^[a-zA-Z\s]+$/|max:255',
             'middle_name'   => 'nullable|string|regex:/^[a-zA-Z\s]*$/|max:255', // Optional field
             'last_name'     => 'required|string|regex:/^[a-zA-Z\s]+$/|max:255',
-            'gender' => 'required'
+            'gender' => 'required',
+            'org_code' => 'required'
         ]);
 
         try {
@@ -41,6 +47,7 @@ class Personalinformation extends Component
             $user->middle_name = $this->_encrypt($this->middle_name);
             $user->last_name = $this->_encrypt($this->last_name);
             $user->gender = $this->gender;
+            $user->org_code = $this->org_code;
             $user->save();
 
             $this->dispatch('success', [
@@ -59,6 +66,7 @@ class Personalinformation extends Component
 
     public function render()
     {
-        return view('livewire.components.personalinformation');
+        $orgs = ParamOrganization::all(['org_code','name']);
+        return view('livewire.components.personalinformation', compact('orgs'));
     }
 }

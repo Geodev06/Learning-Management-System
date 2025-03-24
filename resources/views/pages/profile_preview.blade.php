@@ -60,7 +60,7 @@
                                             <div class="d-flex">
                                                 @if(Auth::user()->role == 'ADMIN' OR Auth::user()->role == 'TEACHER')
                                                 <button class="btn btn-warning mx-2">Commend <i class="mx-2 fa fa-star"></i></button>
-                                                <button class="btn btn-primary">Message <i class="mx-2 fa fa-envelope"></i></button>
+                                                <a href="/inbox/{{ encrypt($user->id) }}"  class="btn btn-primary">Message <i class="mx-2 fa fa-envelope"></i></a>
                                                 @endif
                                             </div>
                                         </div>

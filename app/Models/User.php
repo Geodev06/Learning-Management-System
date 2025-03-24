@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -50,12 +49,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // Validation rules
     public static $rules = [
         'first_name'    => 'required|string|regex:/^[a-zA-Z\s]+$/|max:255',
         'middle_name'   => 'nullable|string|regex:/^[a-zA-Z\s]*$/|max:255', // Optional field
         'last_name'     => 'required|string|regex:/^[a-zA-Z\s]+$/|max:255',
-        'email'         => 'required|email|unique:users,email', // Valid email, unique in the 'users' table
+        'email' => [
+            'required',
+            'email',
+            'unique:users,email',
+            'max:255',
+            'regex:/^[a-zA-Z0-9._%+-]+@(lspu.edu.ph)$/',
+        ],
         'password'      => 'required|string|min:8|confirmed', // Password must be at least 8 characters
     ];
-    
 }

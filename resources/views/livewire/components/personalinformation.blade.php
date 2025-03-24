@@ -23,7 +23,6 @@
                     <label for="input" class="control-label">Last name</label><i class="bar"></i>
                     @error('last_name') <span class="text-danger font-12">{{ $message }}</span> @enderror
                 </div>
-
             </div>
 
             <div class="d-flex ">
@@ -36,10 +35,29 @@
                     <label class="form-check-label">
                         <input type="radio" class="form-check-input" name="gender" wire:model="gender" value="F"> Female <i class="input-helper"></i></label>
                 </div>
-
-
             </div>
             @error('gender') <span class="text-danger font-12">{{ $message }}</span> @enderror
+
+
+            <div>
+                <div class="form-group">
+                    <label for="org_code">Course</label>
+                    <select class="form-select" wire:model.live="org_code" id="org_code">
+
+                        <option value="" selected>No organization selected</option>
+                        @forelse($orgs as $org)
+                        <option value="{{ $org->org_code }}">{{ $org->name }}</option>
+                        @empty
+                        <option disabled selected>No organizations available</option>
+                        @endforelse
+                    </select>
+                    @error('org_code')
+                    <span class="text-danger font-12">{{ $message }}</span>
+                    @enderror
+                </div>
+
+            </div>
+
 
 
             <div class="button-container float-end mx-2 mt-3">
@@ -76,5 +94,5 @@
         })
     </script>
     @endscript
-    
+
 </div>

@@ -17,8 +17,10 @@ class Registration extends Component
     {
 
         $user = new User();
-        
-        $this->validate(User::$rules);
+
+        $this->validate(User::$rules, [
+            'email.regex' => 'Email domain should be lspu.edu.ph'
+        ]);
 
         try {
             DB::beginTransaction();
@@ -33,8 +35,6 @@ class Registration extends Component
 
             DB::commit();
             $this->reset();
-
-            
         } catch (\Throwable $th) {
             DB::rollBack();
             Log::error($th->getMessage());

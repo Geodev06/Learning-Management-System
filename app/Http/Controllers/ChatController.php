@@ -12,37 +12,43 @@ use Illuminate\Support\Facades\Log;
 
 class ChatController extends Controller
 {
-    public function inbox(Request $request)
+    public function inbox(Request $request, $id = null)
     {
+
+        $receiver_param = null;
+        if ($id) {
+            $user_id =  decrypt($id);
+            $receiver_param = User::find($user_id);
+        }
+
         $users = collect();
 
         $search = base64_encode($request->search);
-        
+
         $query = User::where('users.id', '!=', Auth::user()->id);
-        
+
         if (!empty($search)) {
             $query->where('users.first_name', 'like', '%' . $search . '%');
         }
-        
+
         if (Auth::user()->role == 'STUDENT') {
             $query->whereIn('users.role', ['TEACHER', 'ADMIN']);
         }
-        
+
         // Sort by unseen message count
         $users = $query->leftJoin('messages as m', function ($join) {
-                $join->on('m.created_by', '=', 'users.id')
-                     ->where('m.receiver_id', '=', Auth::user()->id)
-                     ->where('m.seen_flag', '=', 0);
-            })
+            $join->on('m.created_by', '=', 'users.id')
+                ->where('m.receiver_id', '=', Auth::user()->id)
+                ->where('m.seen_flag', '=', 0);
+        })
             ->select('users.*', DB::raw('COUNT(m.id) as unseen'))
             ->groupBy('users.id')
             ->orderByDesc('unseen')
             ->orderByDesc('updated_at')
 
             ->paginate(6);
-        
-        return view('pages.inbox', compact('users'));
-        
+
+        return view('pages.inbox', compact('users','receiver_param'));
     }
 
     public function get_message(Request $request)
