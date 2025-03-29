@@ -5,6 +5,7 @@ use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DatatableController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\ModuleController;
@@ -70,6 +71,7 @@ Route::controller(SurveyController::class)->middleware('auth')->group(function (
 
 Route::controller(ChartController::class)->middleware('auth')->group(function () {
     Route::get('/get_avg_score_per_modules', 'get_avg_score_per_modules')->name('get_avg_score_per_modules');
+    Route::get('/get_avg_score_per_modality', 'get_avg_score_per_modality')->name('get_avg_score_per_modality');
 });
 
 Route::controller(FileUploadController::class)->middleware('auth')->group(function () {
@@ -118,6 +120,14 @@ Route::controller(ChatController::class)->middleware('auth')->group(function () 
     Route::get('/get-message', 'get_message')->name('get_message');
 
     Route::post('/send-message', 'send_message')->name('send_message');
+
+
+});
+
+Route::controller(DatatableController::class)->middleware('auth')->group(function () {
+    
+    Route::get('/student_performance_table', 'student_performance_table')->name('student_performance_table');
+
 
 
 });

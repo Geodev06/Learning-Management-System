@@ -1,3 +1,29 @@
+<style>
+    .parent {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        grid-column-gap: 10px;
+        grid-row-gap: 10px;
+    }
+
+    .div1 {
+        grid-area: 1 / 1 / 4 / 4;
+        background-color: white;
+    }
+
+    .div2 {
+        grid-area: 1 / 4 / 6 / 6;
+        background-color: white;
+    }
+
+    .div3 {
+        grid-area: 4 / 1 / 6 / 4;
+        background-color: white;
+    }
+</style>
+
+
 <div class="col-sm-12">
     <div class="home-tab">
         <div class="d-sm-flex align-items-center justify-content-between border-bottom">
@@ -80,6 +106,31 @@
 
                 </div>
 
+
+            </div>
+
+            <div class="tab-pane fade show " id="demographics" role="tabpanel" aria-labelledby="demographics">
+                <div class="parent">
+                    <div class="div1">
+                        <x-performancetable />
+                    </div>
+                    <div class="div2">
+                        <div class="row">
+                            <div class="col-sm-12 mb-2">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title"><b>Avg. Score per Modality</b></h4>
+
+                                        <canvas id="avg_score_per_modality" style="max-height: 400px;"></canvas>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="div3"> </div>
+                </div>
 
             </div>
         </div>

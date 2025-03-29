@@ -9,7 +9,7 @@
                     style="max-width: 50px; max-height:50px; height: 50px; width: 50px"
                     src="{{ $item->profile == null ? 'https://cdn-icons-png.flaticon.com/512/149/149071.png' : asset($item->profile) }}" alt="" srcset="">
                 <div class="card-title mb-0 mt-4">
-                    Ageo Agnote
+                    {{ ucfirst(base64_decode($item->first_name ?? '')) }} {{ ucfirst(base64_decode($item->middle_name ?? '')) }} {{ ucfirst(base64_decode($item->last_name ?? '')) }}
                 </div>
                 <p class="m-0">BS information Technology</p>
                 <p>Last Login : {{ $item->updated_at->diffForHumans() }}</p>
