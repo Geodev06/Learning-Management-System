@@ -1,4 +1,4 @@
-<div class="row row-cols-1 row-cols-md-3 g-4">
+<div class="row row-cols-1 row-cols-md-3">
     <style>
         .card:hover {
             scale: 1.02;
@@ -19,6 +19,22 @@
             /* Adjust this value to match the line height * number of lines */
         }
     </style>
+
+    <div class="col-lg-4">
+        
+    </div>
+    <div class="col-lg-4">
+
+    </div>
+    
+    <div class="col-lg-4">
+        <form class="forms-sample material-form">
+            <div class="form-group">
+                <input type="text" required="required" wire:model.live="search_field" class="@if ($errors->has('search_field')) text-danger @else text-primary @endif" autocomplete="off">
+                <label for="input" class="control-label">Search</label><i class="bar"></i>
+            </div>
+        </form>
+    </div>
     @forelse($learning_materials as $module)
     <div class="col-sm-12 col-lg-3 col-md-3 mb-4">
         <div class="card h-100 p-3 shadow-sm border-0 hover-card" wire:click="redirect_view('{{ encrypt($module->id) }}')">
@@ -65,4 +81,3 @@
 
 
 </div>
-

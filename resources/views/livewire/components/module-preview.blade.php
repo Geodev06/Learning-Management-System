@@ -7,7 +7,6 @@
             <p class="mb-0"><b>Date Created :</b> {{ $module->created_at->format('F d, Y') }}</p>
             <p><b>Author :</b> {{ $module->author ?? '' }}</p>
 
-
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex">
                     @if($module->v_flag)
@@ -27,26 +26,22 @@
             </div>
             <hr>
            
-      
             <div class="d-flex align-items-center">
                 <div class="border-left-1 border p-4 rounded text-center mx-2  p-2 text-white" style="background-color: #524CFF;">
                     <p class="text-start">No. of Takers.</p>
-                    <h1><b>10</b></h1>
+                    <h1><b>{{ $takers ?? 0 }}</b></h1>
                 </div>
 
                 <div class="border-left-1 border p-4 rounded text-center mx-2 p-2 text-white" style="background-color: #524CFF;">
-                    <p class="text-start">Average Student Score</p>
-                    <h1><b>55%</b></h1>
+                    <p class="text-start">Average Student Grade</p>
+                    <h1><b>{{ $avg_score ?? 0 }}%</b></h1>
                 </div>
 
                 <div class="border-left-1 border p-4 rounded text-center mx-2  p-2 text-white" style="background-color: #524CFF;">
                     <p class="text-start">Passing Rate</p>
-                    <h1><b>45%</b></h1>
+                    <h1><b>{{ $passing ?? 0 }}%</b></h1>
                 </div>
-
-
             </div>
-
 
             @if(!$is_added)
             <div class="button-container mt-2">
@@ -86,9 +81,6 @@
                 window.location.href = "{{ route('learn_module', encrypt($id)) }} "
 
             });
-
-
-
         })
     </script>
     @endscript

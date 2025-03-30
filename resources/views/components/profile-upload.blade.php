@@ -15,9 +15,11 @@
                 </form>
             </div>
 
+            @if(Auth::user()->profile)
             <div class="col-lg-6 col-md-6 col-sm-4 d-flex justify-content-center align-items-center">
                 <img id="profile_image" src="{{ asset(Auth::user()->profile) }}" alt="Profile image" style="max-width :100px; max-height:100px" />
             </div>
+            @endif
         </div>
     </div>
 

@@ -11,10 +11,15 @@ use App\Http\Controllers\GuestController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentApiController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SurveyController;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
 use Livewire\Features\SupportFileUploads\FileUploadSynth;
 
@@ -125,10 +130,16 @@ Route::controller(ChatController::class)->middleware('auth')->group(function () 
 });
 
 Route::controller(DatatableController::class)->middleware('auth')->group(function () {
-    
     Route::get('/student_performance_table', 'student_performance_table')->name('student_performance_table');
-
-
-
 });
+
+Route::controller(PasswordController::class)->middleware('guest')->group(function () {
+    Route::get('/forgot-password', 'showForgotPasswordForm')->name('password.request');
+    Route::post('/forgot-password', 'sendResetLink')->name('password.email');
+    Route::get('/reset-password/{token}','showResetPasswordForm')->name('password.reset');
+    Route::post('/update-reset-password', 'updateResetPassword')->name('update_reset_password');
+});
+
+
+
 

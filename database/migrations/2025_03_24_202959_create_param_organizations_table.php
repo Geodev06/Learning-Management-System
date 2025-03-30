@@ -21,7 +21,7 @@ return new class extends Migration
 
         DB::unprepared("
             INSERT INTO `lms`.`param_organizations` (`org_code`, `name`, `created_at`) VALUES ('BS_IT', 'BS Information Technology', now());
-            INSERT INTO `lms`.`param_organizations` (`org_code`, `name`, `created_at`) VALUES ('BS_CS', 'BS_Computer Science', now());
+            INSERT INTO `lms`.`param_organizations` (`org_code`, `name`, `created_at`) VALUES ('BS_CS', 'BS Computer Science', now());
         ");
     }
 

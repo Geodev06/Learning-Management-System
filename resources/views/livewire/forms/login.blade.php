@@ -7,11 +7,16 @@
         <div class="col-lg-6 p-0">
             <div class="card" style="min-height: 100vh; padding:10%">
                 <div class="card-body mt-5 py-5">
-                    <h3 class="text-primary">Learning Management System</h3>
-                    <p class="card-description"> Please login to continue </p>
+                    <h3 class="text-primary">Learning Management System </h3>
+                    <span class="font-12 text-dark mt-0 mb-4">{{ env('APP_VERSION') }}</span>
+                    <p class="card-description mt-2"> Please login to continue </p>
 
                     @if(session('error'))
                     <x-alert title="Error" message="{{ session('error') }}" type="danger" />
+                    @endif
+
+                    @if(session('success_reset'))
+                    <x-alert title="Success" message="{{ session('success_reset') }}" type="success" />
                     @endif
 
                     <form class="forms-sample material-form">
@@ -33,7 +38,7 @@
                                 <label class="form-check-label text-muted">
                                     <input type="checkbox" class="form-check-input"> Keep me signed in <i class="input-helper"></i></label>
                             </div>
-                            <a href="#" class="auth-link text-black" style="font-size: small;">Forgot password?</a>
+                            <a href="{{ route('password.request') }}" class="auth-link text-black" style="font-size: small;">Forgot password?</a>
                         </div>
                         <div class="button-container">
                             <button type="button"

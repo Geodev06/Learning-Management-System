@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Components;
 
+use App\Models\Assessment;
 use App\Models\Module;
 use App\Models\ModuleLesson;
 use App\Models\StudentModule;
@@ -87,6 +88,18 @@ class ModulePreview extends Component
 
         $module->author = base64_decode($author->first_name) . ' ' . base64_decode($author->last_name);
 
-        return view('livewire.components.module-preview', compact('module', 'module_lessons'));
+        
+        $takers = StudentModule::where('module_id', $this->id)->count();
+        $avg_score = Assessment::where('module_id', $this->id)->avg('grade');
+
+        $totalAssessments = Assessment::where('module_id', $this->id)->count();
+        if ($totalAssessments > 0) {
+            $passing = (Assessment::where('module_id', $this->id)->where('grade', '>=', 75)->count() / $totalAssessments) * 100;
+        } else {
+            $passing = 0; // or any other default value you want to set when there are no assessments
+        }
+
+
+        return view('livewire.components.module-preview', compact('module', 'module_lessons','passing','takers' ,'avg_score'));
     }
 }

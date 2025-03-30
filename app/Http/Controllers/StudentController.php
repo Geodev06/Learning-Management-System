@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Assessment;
 use App\Models\Module;
 use App\Models\ModuleLesson;
 use App\Models\ParamOrganization;
+use App\Models\StudentModule;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -30,7 +32,6 @@ class StudentController extends Controller
                 $val->name = ParamOrganization::where('org_code', $val->org_code)->first()->name ?? 'Default Name'; // You can handle default value if no name is found
             }
         }
-
 
 
         return view('pages.module_preview', compact('module'));
