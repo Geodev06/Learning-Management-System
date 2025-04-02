@@ -6,11 +6,23 @@
 
             @csrf
 
-            <p>Active Status</p>
-            <div class="d-flex">
-                <input type="hidden" name="id" id="user_id">
-                <input type="radio" id="radio-active" value="Y" name="active_flag" aria-label="Active" data-labelauty="Active" />
-                <input type="radio" id="radio-inactive" value="N" name="active_flag" aria-label="Inactive" data-labelauty="Inactive" />
+            <div class="d-flex ">
+                <div class="mx-2">
+                    <p>Active Status</p>
+                    <div class="d-flex">
+                        <input type="hidden" name="id" id="user_id">
+                        <input type="radio" id="radio-active" value="Y" name="active_flag" aria-label="Active" data-labelauty="Active" />
+                        <input type="radio" id="radio-inactive" value="N" name="active_flag" aria-label="Inactive" data-labelauty="Inactive" />
+                    </div>
+                </div>
+
+                <div>
+                    <p>Role</p>
+                    <div class="d-flex">
+                        <input type="radio" id="radio-role-s" value="STUDENT" name="role" aria-label="Student" data-labelauty="Student" />
+                        <input type="radio" id="radio-role-t" value="TEACHER" name="role" aria-label="Teacher" data-labelauty="Teacher" />
+                    </div>
+                </div>
             </div>
 
             <div class="form-group">
@@ -20,7 +32,7 @@
             </div>
 
 
-            <div class="button-container">
+            <div class="button-container float-end">
                 <button type="submit"
                     class="btn btn-rounded btn-primary">
                     Save
@@ -35,6 +47,7 @@
             $('#modal_user').modal('show')
 
             loading()
+
             $.get('/get_specific_user', {
                 id: id
             }, function(res) {
@@ -49,8 +62,15 @@
                         $('#radio-inactive').prop('checked', true);
                     }
 
+                    if (res.role == 'STUDENT') {
+                        $('#radio-role-s').prop('checked', true);
+                    } else {
+                        $('#radio-role-t').prop('checked', true);
+                    }
+
                 }
             })
+
             stop_loading()
 
         }
@@ -59,9 +79,12 @@
             e.preventDefault();
 
             var activeFlagValue = $('input[name="active_flag"]:checked').val();
+            var role = $('input[name="role"]:checked').val();
+
             $('.error-password').text('')
             var formData = $(this).serialize();
-            formData += '&active_flag=' + encodeURIComponent(activeFlagValue);
+            formData += '&active_flag=' + encodeURIComponent(activeFlagValue) +'&role=' + role
+
             $.ajax({
                 url: '/update-user', // Replace with your URL
                 type: 'POST',
@@ -79,8 +102,7 @@
                     }
                 },
                 error: function(error) {
-                    if(error)
-                    {
+                    if (error) {
                         $('.error-password').text(error.responseJSON.errors.password[0])
                     }
                     $('#tbl_users').DataTable().ajax.reload(null, false);
@@ -98,11 +120,13 @@
                     <table class="table table-bordered table-striped" id="tbl_users">
                         <thead class="">
                             <tr>
-                                <th>First Name</th>
-                                <th>Middle Name</th>
-                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th width="12%">First Name</th>
+                                <th width="12%">Middle Name</th>
+                                <th width="12%">Last Name</th>
+                                <th>Role</th>
                                 <th>Status</th>
-                                <th>Last Active</th>
+                                <th width="12%">Last Active</th>
                                 <th width="15%">Action</th>
 
                             </tr>
@@ -138,7 +162,11 @@
                                 processing: true,
                                 serverSide: true,
                                 ajax: "{{ route('users_table') }}", // Set the route to your getData method
-                                columns: [{
+                                columns: [
+                                    {
+                                        data: 'email'
+                                    },
+                                    {
                                         data: 'first_name'
                                     },
                                     {
@@ -146,6 +174,9 @@
                                     },
                                     {
                                         data: 'last_name'
+                                    },
+                                    {
+                                        data: 'role'
                                     },
                                     {
                                         data: 'status'

@@ -28,6 +28,7 @@ class User extends Authenticatable
         'login_attempt',
         'reference_no',
         'email',
+        'role',
         'password',
     ];
 

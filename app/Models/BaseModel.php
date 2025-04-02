@@ -82,13 +82,14 @@ class BaseModel extends Model
                         FROM_BASE64(A.middle_name) middle_name,
                         FROM_BASE64(A.last_name) last_name,
                         IF(A.active_flag = 'Y', 'Active','Inactive') status,
-                        IF(A.active_flag = 'Y', 'Active','Inactive') status,
+                      
                         A.role,
                         A.updated_at last_login,
                         A.org_code,
-                        A.gender
-
+                        A.gender,
+                        A.email
                         FROM users A
+                        WHERE A.role != 'ADMIN'
                 "
             );
 

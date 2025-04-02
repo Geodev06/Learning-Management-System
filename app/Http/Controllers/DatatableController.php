@@ -110,7 +110,7 @@ class DatatableController extends Controller
                             </div>
                         ';
                     })
-                    ->rawColumns(['first_name', 'middle_name', 'last_name', 'status', 'last_login', 'action'])
+                    ->rawColumns(['first_name','email', 'role' ,'middle_name', 'last_name', 'status', 'last_login', 'action'])
                     ->make(true);
             }
         } catch (\Throwable $th) {

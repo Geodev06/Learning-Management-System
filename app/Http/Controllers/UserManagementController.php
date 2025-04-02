@@ -22,7 +22,6 @@ class UserManagementController extends Controller
             $user->middle_name = base64_decode($user->middle_name);
             $user->last_name = base64_decode($user->last_name);
 
-
             return response()->json($user, 200);
         } catch (\Throwable $th) {
             return response()->json(NULL, 500);
@@ -39,7 +38,8 @@ class UserManagementController extends Controller
 
             User::find($request->id)->update([
                 'password'      => Hash::make($request->password),
-                'active_flag'   => $request->active_flag
+                'active_flag'   => $request->active_flag,
+                'role'          => $request->role
             ]);
 
         } 
@@ -48,7 +48,8 @@ class UserManagementController extends Controller
 
         {
             User::find($request->id)->update([
-                'active_flag'   => $request->active_flag
+                'active_flag'   => $request->active_flag,
+                'role'          => $request->role
             ]);
         }
 
