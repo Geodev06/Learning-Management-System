@@ -64,7 +64,6 @@
                                                             <livewire:components.lesson-toggle-button lesson_id="{{ $lesson->id }}" />
                                                         </div>
                                                         <p class="font-12">{{ $lesson->desc ?? '' }}</p>
-
                                                     </div>
                                                 </div>
                                             </div>

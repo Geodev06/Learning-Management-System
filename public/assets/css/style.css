@@ -35479,3 +35479,13 @@ dl li {
   /* Orange for Copy */
   color: white;
 }
+
+.dt-search
+{
+  margin-bottom: 12px !important;
+}
+
+.dt-length
+{
+  margin-top: 12px !important;
+}

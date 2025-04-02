@@ -22,7 +22,7 @@
             </li>
         </ul>
         <ul class="navbar-nav ms-auto">
-            <li class="nav-item dropdown d-none d-lg-block">
+            <!-- <li class="nav-item dropdown d-none d-lg-block">
                 <a class="nav-link dropdown-bordered dropdown-toggle dropdown-toggle-split" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false"> Select Category </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="messageDropdown">
                     <a class="dropdown-item py-3">
@@ -37,7 +37,7 @@
                     </a>
                  
                 </div>
-            </li>
+            </li> -->
             
             <li class="nav-item">
                 <form class="search-form" action="#">
@@ -58,24 +58,17 @@
             </li>
 
             <li class="nav-item dropdown">
-                <a class="nav-link count-indicator" id="countDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link count-indicator " id="countDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="icon-mail icon-lg"></i>
+                    <span class="count text-primary">{{ $unread_msg == 0 ? '' : $unread_msg }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list message-list pb-0" aria-labelledby="countDropdown">
                     <a class="dropdown-item py-3" href="{{ route('inbox') }}">
-                        <p class="mb-0 fw-medium float-start">You have 7 unread mails </p>
+                        <p class="mb-0 fw-medium float-start">You have {{ $unread_msg ?? 0 }} unread mails </p>
                         <span class="badge badge-pill badge-primary float-end">View all</span>
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item preview-item message-item">
-                        <div class="preview-thumbnail">
-                            <img src="{{ asset('assets/images/faces/face10.jpg') }}" alt="image" class="img-sm profile-pic">
-                        </div>
-                        <div class="preview-item-content flex-grow py-2">
-                            <p class="preview-subject ellipsis fw-medium text-dark">Marian Garner </p>
-                            <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
-                        </div>
-                    </a>
+                   
                    
                 </div>
             </li>

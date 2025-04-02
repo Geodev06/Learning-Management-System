@@ -38,7 +38,11 @@
                                 <div class="d-sm-flex align-items-center justify-content-between border-bottom">
                                     <ul class="nav nav-tabs" role="tablist">
                                         <li class="nav-item">
-                                            <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#attachments" role="tab" aria-controls="overview" aria-selected="true">Attachments</a>
+                                            <a class="nav-link active ps-0" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-selected="false">Overview</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="home-tab" data-bs-toggle="tab" href="#attachments" role="tab" aria-controls="overview" aria-selected="true">Attachments</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#activities" role="tab" aria-selected="false">Activities</a>
@@ -46,7 +50,17 @@
                                     </ul>
                                 </div>
                                 <div class="tab-content tab-content-basic">
-                                    <div class="tab-pane fade show active" id="attachments" role="tabpanel" aria-labelledby="attachments">
+                                    <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
+                                        <div class="row">
+                                            <div class="col-lg-12 ">
+                                                <x-tablesubmissionlesson :id="$module->id" :lesson="$lesson->id" />
+                                            </div>
+
+                                           
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade show " id="attachments" role="tabpanel" aria-labelledby="attachments">
                                         <div class="row">
                                             <div class="col-lg-12 ">
                                                 <button class="btn btn-sm btn-default float-start" id="btn_add"
@@ -58,10 +72,7 @@
                                             <div class="col-lg-12">
                                                 <livewire:components.filecards lesson_id="{{ $lesson->id }} " />
                                             </div>
-
                                         </div>
-
-
                                     </div>
                                     <div class="tab-pane fade show " id="activities" role="tabpanel" aria-labelledby="activities">
                                         <div class="row row-action">
@@ -103,7 +114,7 @@
 
                     <label for="input" class="control-label">Caption <span class="text-danger">*</span></label><i class="bar"></i>
                     <input type="text" name="caption" class="form-control" placeholder="Enter Caption here" autocomplete="off">
-                <div class="caption-error text-danger font-12"></div>
+                    <div class="caption-error text-danger font-12"></div>
 
                 </div>
 
@@ -114,7 +125,7 @@
                     <label for="input" class="control-label">File</label><i class="bar"></i>
                     <input type="file" name="file" accept=".pdf" class="file-input @if ($errors->has('file')) text-danger @else text-primary @endif form-control" autocomplete="off">
                     <div class="file-error text-danger font-12"></div>
-                
+
                 </div>
 
                 <!-- Text input field (hidden by default) -->

@@ -13,9 +13,11 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SiteSettingController;
 use App\Http\Controllers\StudentApiController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\UserManagementController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -81,15 +83,7 @@ Route::controller(ChartController::class)->middleware('auth')->group(function ()
 
 Route::controller(FileUploadController::class)->middleware('auth')->group(function () {
     Route::post('/upload', 'upload')->name('upload');
-    Route::get('/download/{filename}', function ($file) {
-        $filePath = public_path('files/' . $file);  // Files in public/files
-
-        if (file_exists($filePath)) {
-            return response()->download($filePath);
-        } else {
-            abort(404);  // Return 404 if file not found
-        }
-    })->name('download');
+    Route::get('/download/{filename}', 'download')->name('download');
 
     Route::post('/profile_upload', 'profile_upload')->name('profile_upload');
     Route::post('/module_bg_upload', 'module_bg_upload')->name('module_bg_upload');
@@ -103,8 +97,6 @@ Route::controller(NotificationController::class)->middleware('auth')->group(func
 
     Route::post('/seen', 'seen')->name('seen');
     Route::post('/delete-notification', 'delete')->name('delete_notification');
-
-
 });
 
 Route::controller(ProfileController::class)->middleware('auth')->group(function () {
@@ -119,18 +111,26 @@ Route::controller(StudentApiController::class)->middleware('auth')->group(functi
 });
 
 Route::controller(ChatController::class)->middleware('auth')->group(function () {
-    
     Route::get('/inbox/{id?}', 'inbox')->name('inbox');
-
     Route::get('/get-message', 'get_message')->name('get_message');
-
     Route::post('/send-message', 'send_message')->name('send_message');
-
-
 });
 
 Route::controller(DatatableController::class)->middleware('auth')->group(function () {
     Route::get('/student_performance_table', 'student_performance_table')->name('student_performance_table');
+    Route::get('/users_table', 'users_table')->name('users_table');
+    Route::get('/submission_table_per_lesson/{module_id}/{lesson_id}', 'submission_table_per_lesson')->name('submission_table_per_lesson');
+});
+
+Route::controller(UserManagementController::class)->middleware('auth')->group(function () {
+    Route::get('/user_management', 'user_management')->name('user_management');
+    Route::get('/get_specific_user', 'get_specific_user')->name('get_specific_user');
+    Route::post('/update-user', 'update_user')->name('update_user');
+});
+
+Route::controller(SiteSettingController::class)->middleware('auth')->group(function () {
+    Route::get('/site_settings', 'site_settings')->name('site_settings');
+    Route::get('/documentation', 'documentation')->name('documentation');
 });
 
 Route::controller(PasswordController::class)->middleware('guest')->group(function () {

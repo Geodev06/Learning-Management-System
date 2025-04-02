@@ -35,7 +35,8 @@
             </a>
             <div class="collapse" id="ui-basic2">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="">Site Settings</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('site_settings') }}">Site Settings</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('user_management') }}">User Management</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{ route('profile') }}">Profile</a></li>
 
                 </ul>
@@ -82,7 +83,7 @@
 
 
         <li class="nav-item">
-            <a class="nav-link" href="docs/documentation.html">
+            <a class="nav-link" href="{{ route('documentation') }}">
                 <i class="menu-icon mdi mdi-file-document"></i>
                 <span class="menu-title">Documentation</span>
             </a>

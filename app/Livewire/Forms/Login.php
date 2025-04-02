@@ -25,7 +25,7 @@ class Login extends Component
 
         try {
             // Check if the user exists
-            $user = User::where('email', $this->email)->first();
+            $user = User::where('email', $this->email)->where('active_flag', 'Y')->first();
 
             if ($user && Hash::check($this->password, $user->password)) {
                 // If the password matches, log the user in
