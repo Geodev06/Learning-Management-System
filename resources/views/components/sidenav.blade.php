@@ -82,11 +82,23 @@
 
 
 
+
+        @if(Auth::user()->role == 'ADMIN')
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('reports') }}">
+                <i class="menu-icon mdi mdi-printer"></i>
+                <span class="menu-title">Reports</span>
+            </a>
+        </li>
+        @endif
+
+        
         <li class="nav-item">
             <a class="nav-link" href="{{ route('documentation') }}">
                 <i class="menu-icon mdi mdi-file-document"></i>
                 <span class="menu-title">Documentation</span>
             </a>
         </li>
+
     </ul>
 </nav>

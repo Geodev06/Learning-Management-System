@@ -13,6 +13,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SiteSettingController;
 use App\Http\Controllers\StudentApiController;
 use App\Http\Controllers\StudentController;
@@ -139,6 +140,20 @@ Route::controller(PasswordController::class)->middleware('guest')->group(functio
     Route::get('/reset-password/{token}','showResetPasswordForm')->name('password.reset');
     Route::post('/update-reset-password', 'updateResetPassword')->name('update_reset_password');
 });
+
+Route::controller(ReportController::class)->middleware('auth')->group(function () {
+    Route::get('/reports', 'index')->name('reports');
+    Route::get('/report-filter', 'filter')->name('render_filter');
+    Route::get('/report-list', 'report_list')->name('report_list');
+    Route::post('/generate', 'generate')->name('generate');
+
+    Route::get('/student_list', 'student_list')->name('student_list');
+    Route::get('/module_list', 'module_list')->name('module_list');
+
+
+
+});
+
 
 
 
