@@ -59,8 +59,8 @@
                                         <div class="col-lg-3 col-md-3 align-items-center d-grid">
                                             <div class="d-flex">
                                                 @if(Auth::user()->role == 'ADMIN' OR Auth::user()->role == 'TEACHER')
-                                                <button class="btn btn-warning mx-2">Commend <i class="mx-2 fa fa-star"></i></button>
-                                                <a href="/inbox/{{ encrypt($user->id) }}"  class="btn btn-primary">Message <i class="mx-2 fa fa-envelope"></i></a>
+                                                <button class="btn btn-warning mx-2 btn-add-award">Commend <i class="mx-2 fa fa-star"></i></button>
+                                                <a href="/inbox/{{ encrypt($user->id) }}" class="btn btn-primary">Message <i class="mx-2 fa fa-envelope"></i></a>
                                                 @endif
                                             </div>
                                         </div>
@@ -72,10 +72,35 @@
 
 
                         <div class="col-md-12 col-lg-12 grid-margin stretch-card">
-                            <div class="card card-rounded p-4">
-                                <div class="card-body">
-                                    <h4 class="card-title card-title-dash">Awards & Recognitions</h4>
-                                    <p>No Awards</p>
+                            <div class="card card-rounded">
+                                <div class="card-body card-rounded">
+                                    <h4 class="card-title  card-title-dash">Recent Awards & Recognitions</h4>
+                                    <div class="list align-items-center border-bottom py-2">
+
+
+                                        @forelse($awards as $award)
+                                        <div class="wrapper w-100 mb-2">
+                                            <p class="mb-0 fw-light fs-6">{!!  $award->icon !!} {{ $award->title }} </p>
+                                            <p class="m-0" style="font-style: italic;"> - {{ $award->description }}</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="mdi mdi-calendar text-muted me-1"></i>
+                                                    <p class="mb-0 text-small text-muted">{{ $award->date }}</p>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <i class="mdi mdi-star text-muted me-1"></i>
+                                                    <p class="mb-0 text-small text-warning">Given by : {{ $award->given_by }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @empty
+                                        <p class="mb-0 fw-light fs-6">No Awards</p>
+
+                                        @endforelse
+
+
+
+                                    </div>
 
                                 </div>
                             </div>
@@ -214,10 +239,91 @@
         <!-- page-body-wrapper ends -->
     </div>
 
+    <x-modal id="modal_award" title="Commend">
+        <form id="#form_award">
+            @csrf
+            <span id="award-error" class="font-12 text-danger error"></span>
 
+            <div class="form-group w-100">
+                <label>Award List</label>
+
+                <select class="select_award" style="width: 100%" name="award">
+                    <option value="" selected>Choose one</option>
+                </select>
+
+            </div>
+
+            <div class="form-group w-100">
+                <label for="date">Date Acquired</label>
+                <input id="date" class="form-control" type="date" name="date_acquired" />
+
+            </div>
+            <button class="btn btn-danger" id="btn-save-award" type="button">Commend <i class="menu-icon mdi mdi-star"></i></button>
+        </form>
+    </x-modal>
 </body>
 @include('core.core_js')
 
+<script>
+    $(document).ready(function(e) {
+
+        var award_select = $('.select_award').selectize({
+            valueField: 'value', // Value field for the options
+            labelField: 'text', // Text to display in the dropdown
+            searchField: ['text'], // Which field to search by
+            options: [],
+        });
+        var award_select_control = award_select[0].selectize;
+
+        $.get("{{ route('get_award_list') }}", {}, function(res) {
+            award_select_control.addOption(res); // Adding options to the Selectize dropdown
+            award_select_control.refreshOptions(); // Refresh to update the dropdown
+        })
+
+        $('.btn-add-award').on('click', function(e) {
+            $('#modal_award').modal('show')
+        })
+
+        $('#btn-save-award').on('click', function(e) {
+            e.preventDefault(); // Prevent form submission
+
+            // Clear any previous error messages
+            $('.error').text('');
+
+            // Create FormData object from the form
+            var formData = new FormData($('#form_award')[0]);
+            var selectedValue = award_select_control.getValue();
+
+            formData.append('award', selectedValue);
+            formData.append('date_acquired', $('#date').val());
+            formData.append('_token', "{{ csrf_token() }}");
+            formData.append('user_id', "{{ $user->id }}");
+
+            loading();
+
+            $.ajax({
+                url: "{{ route('commend') }}", // Replace with the URL you want to send the request to
+                type: 'POST',
+                data: formData,
+                processData: false, // Prevent jQuery from processing the data
+                contentType: false, // Prevent jQuery from setting the content-type (important for FormData)
+                success: function(response) {
+                    // Stop the loading indicator on successful submission
+                    stop_loading();
+                    if (response) {
+                        window.location.reload()
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Stop the loading indicator in case of error
+                    stop_loading();
+                    $('.error').text(xhr.responseJSON)
+                }
+            });
+        });
+
+    })
+</script>
 @livewireScripts
 
 

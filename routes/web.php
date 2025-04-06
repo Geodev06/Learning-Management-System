@@ -2,6 +2,7 @@
 
 use App\Events\MessageSent;
 use App\Http\Controllers\AssessmentController;
+use App\Http\Controllers\AwardController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\DashboardController;
@@ -149,8 +150,11 @@ Route::controller(ReportController::class)->middleware('auth')->group(function (
 
     Route::get('/student_list', 'student_list')->name('student_list');
     Route::get('/module_list', 'module_list')->name('module_list');
+});
 
-
+Route::controller(AwardController::class)->middleware('auth')->group(function () {
+    Route::get('/get_award_list', 'get_award_list')->name('get_award_list');
+    Route::post('/commend', 'commend')->name('commend');
 
 });
 

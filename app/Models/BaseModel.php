@@ -94,7 +94,6 @@ class BaseModel extends Model
             );
 
             return $query;
-
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
         }
@@ -121,7 +120,34 @@ class BaseModel extends Model
                         JOIN users B ON B.id = A.created_by
                         WHERE A.module_id = ?
                               AND A.lesson_id = ?
-                ",[$module_id, $lesson_id]
+                ",
+                [$module_id, $lesson_id]
+            );
+
+            return $query;
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+        }
+    }
+
+    public function get_awards($user_id)
+    {
+        try {
+
+            $query = DB::select(
+                "
+                SELECT
+                    A.id,
+                    C.title, C.description, C.icon,
+                    date_format(B.date_acquired, '%M %d, %Y') date,
+                    CONCAT_WS(' ', FROM_BASE64(D.first_name),  FROM_BASE64(D.middle_name),  FROM_BASE64(D.last_name)) given_by
+                    FROM users A
+                    JOIN user_awards B ON B.user_id = A.id
+                    JOIN param_awards C ON C.id = B.award_id
+                    JOIN users D ON D.id = B.created_by
+                    WHERE B.user_id = ? ORDER BY B.date_acquired DESC;
+                ",
+                [$user_id]
             );
 
             return $query;

@@ -29,7 +29,7 @@
 
                             var $table_route = `{{ route('submission_table_per_lesson', ['module_id' => $module_id, 'lesson_id' => $lesson_id]) }}`;
 
-                           
+
 
                             $('#table_submission_per_lesson').DataTable({
                                 responsive: true,
@@ -52,8 +52,7 @@
                                 processing: true,
                                 serverSide: true,
                                 ajax: $table_route, // Set the route to your getData method
-                                columns: [
-                                    {
+                                columns: [{
                                         data: 'fullname'
                                     },
                                     {
