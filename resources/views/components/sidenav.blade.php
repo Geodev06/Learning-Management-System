@@ -18,6 +18,7 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="{{ route('modules') }}">Modules</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{ route('assessments') }}">Assessments</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('assignments_and_projects') }}">Assignments/Projects</a></li>
                 </ul>
             </div>
         </li>

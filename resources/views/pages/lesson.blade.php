@@ -243,7 +243,7 @@
                         });
                     }
 
-                    console.log(xhr)
+                
                     stop_loading()
 
                 }

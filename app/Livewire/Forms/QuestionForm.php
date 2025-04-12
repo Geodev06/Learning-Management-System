@@ -79,6 +79,19 @@ class QuestionForm extends Component
                     'points' => 'required|integer|min:1|max:10', // Add min validation for points
                 ]);
 
+
+                $choices = [
+                    $this->choice_a,
+                    $this->choice_b,
+                    $this->choice_c,
+                    $this->choice_d,
+                ];
+        
+                if (count($choices) !== count(array_unique($choices))) {
+                    $this->addError('duplicate_choices', 'All choices must be different.');
+                    return;
+                }
+                
                 try {
                     if ($this->correct == 'A') {
                         $this->correct = $this->choice_a;

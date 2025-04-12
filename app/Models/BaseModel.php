@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -148,6 +149,42 @@ class BaseModel extends Model
                     WHERE B.user_id = ? ORDER BY B.date_acquired DESC;
                 ",
                 [$user_id]
+            );
+
+            return $query;
+
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+        }
+    }
+
+    public function contruct_task_table()
+    {
+        try {
+
+            $where = '';
+            
+            if(Auth::user()->role == 'TEACHER')
+            {
+                $where = 'WHERE created_by = '. Auth::user()->id;
+            }
+
+            $query = DB::select(
+                "
+                SELECT 
+                    id, id as t_id, title, IF(type = 'A' ,'Assignment','Project') type,
+                    CASE
+                        WHEN modality = 'A' THEN 'Auditory'
+                        WHEN modality = 'R' THEN 'Reading and Writing'
+                        WHEN modality = 'K' THEN 'Kinesthetics'
+                        WHEN modality = 'V' THEN 'Visual'
+                    END as modality,
+                    DATE_FORMAT(deadline, '%b %e, %Y %l:%i %p') AS deadline,
+                    DATE_FORMAT(posted_date, '%b %e, %Y %l:%i %p') AS posted_date,
+                    IF(posted_flag = 'Y', 'Posted', 'Draft') status,
+                    (select DISTINCT COUNT(*) from task_participants WHERE task_id = t_id) as no_of_participants
+                    FROM param_tasks $where;
+                "
             );
 
             return $query;

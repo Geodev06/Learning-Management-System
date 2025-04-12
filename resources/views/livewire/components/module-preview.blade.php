@@ -7,23 +7,7 @@
             <p class="mb-0"><b>Date Created :</b> {{ $module->created_at->format('F d, Y') }}</p>
             <p><b>Author :</b> {{ $module->author ?? '' }}</p>
 
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="d-flex">
-                    @if($module->v_flag)
-                    <span class="badge badge-success p-1 mx-1">Visual</span>
-                    @endif
-                    @if($module->k_flag)
-                    <span class="badge badge-info p-1 mx-1">Kinesthetic</span>
-                    @endif
-                    @if($module->a_flag)
-                    <span class="badge badge-danger p-1 mx-1">Auditory</span>
-                    @endif
-                    @if($module->r_flag)
-                    <span class="badge badge-dark p-1 mx-1">Reading and Writing</span>
-                    @endif
-                </div>
-                <p>No. of Lessons <b>{{ $module_lessons->count() }}</b></p>
-            </div>
+            
             <hr>
            
             <div class="d-flex align-items-center">

@@ -46,6 +46,7 @@
         <div class="card">
             <div class="card-body">
                 <form class="forms-sample material-form">
+                    @error('duplicate_choices') <span class="font-12 text-danger">{{ $message }}</span> @enderror
 
                     <div class="form-group w-25">
                         <input type="text" required="required" wire:model="points"

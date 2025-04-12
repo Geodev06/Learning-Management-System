@@ -19,6 +19,7 @@ use App\Http\Controllers\SiteSettingController;
 use App\Http\Controllers\StudentApiController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserManagementController;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -122,6 +123,8 @@ Route::controller(DatatableController::class)->middleware('auth')->group(functio
     Route::get('/student_performance_table', 'student_performance_table')->name('student_performance_table');
     Route::get('/users_table', 'users_table')->name('users_table');
     Route::get('/submission_table_per_lesson/{module_id}/{lesson_id}', 'submission_table_per_lesson')->name('submission_table_per_lesson');
+    Route::get('/task_table', 'task_table')->name('task_table');
+
 });
 
 Route::controller(UserManagementController::class)->middleware('auth')->group(function () {
@@ -155,6 +158,18 @@ Route::controller(ReportController::class)->middleware('auth')->group(function (
 Route::controller(AwardController::class)->middleware('auth')->group(function () {
     Route::get('/get_award_list', 'get_award_list')->name('get_award_list');
     Route::post('/commend', 'commend')->name('commend');
+
+});
+
+Route::controller(TaskController::class)->middleware('auth')->group(function () {
+    Route::get('/assignments_and_projects', 'index')->name('assignments_and_projects');
+    Route::get('/assignments_and_projects/form/{id?}', 'form')->name('assignments_and_projects.form');
+    Route::get('/load_students', 'load_students')->name('load_students');
+    Route::get('/get_saved_participants', 'get_saved_participants')->name('get_saved_participants');
+
+
+    Route::post('/process_task', 'process_task')->name('process_task');
+
 
 });
 

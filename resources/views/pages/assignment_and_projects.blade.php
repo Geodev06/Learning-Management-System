@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Management</title>
+    <title>Assignment/Projects</title>
     @include('core.core_css')
 
     @livewireStyles
@@ -23,9 +23,10 @@
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="row">
-                        <h4 class="mb-3">User Management</h4>
-
-                        <x-user-management-table />
+                        <h4 class="mb-3">Assignment/Projects</h4>
+                        
+                       
+                        <x-tasktable />
 
                     </div>
                 </div>
@@ -43,9 +44,9 @@
 </body>
 @include('core.core_js')
 
-@include('partials.labelauty')
+
 @livewireScripts
 
-
+@scripts
 
 </html>

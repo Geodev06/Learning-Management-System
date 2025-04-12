@@ -134,4 +134,42 @@ class DatatableController extends Controller
             Log::error($th->getMessage());
         }
     }
+
+    public function task_table(Request $request)
+    {
+        try {
+
+            $model = new BaseModel();
+
+            if ($request->ajax()) {
+
+                return DataTables::of($model->contruct_task_table())
+                    ->addColumn('status', function ($row) {
+
+                        $span_html = "
+                            <div class='text-center'>
+                                $row->status
+                            </div>
+                        ";
+                        return $span_html;
+                    })
+                    ->addColumn('action', function ($row) {
+                        return '
+                            <div>
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <a href="' . route('assignments_and_projects.form', encrypt($row->id)) . '" class="mx-2 btn btn-primary btn-sm btn-rounded btn-fw">Manage</a>
+                                    
+
+                                </div>
+                              
+                            </div>
+                        ';
+                    })
+                    ->rawColumns(['title','type', 'no_of_participants' ,'modality', 'date_posted', 'deadline', 'status', 'action'])
+                    ->make(true);
+            }
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+        }
+    }
 }

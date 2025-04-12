@@ -21,22 +21,9 @@
                                             <img src="{{ asset('assets/images/book.png') }}" alt="" style="max-width: 50px; max-height:50px">
                                             <div class="mx-auto">
                                                 <h5 class="card-title">{{ ucfirst($module->title) }}</h5>
-                                                <div class="d-flex">
-                                                    @if($module->v_flag)
-                                                    <span class="badge badge-success p-1 mx-1">Visual</span>
-                                                    @endif
-                                                    @if($module->k_flag)
-                                                    <span class="badge badge-info p-1 mx-1">Kinesthetic</span>
-                                                    @endif
-                                                    @if($module->a_flag)
-                                                    <span class="badge badge-danger p-1 mx-1">Auditory</span>
-                                                    @endif
-                                                    @if($module->r_flag)
-                                                    <span class="badge badge-dark p-1 mx-1">Reading and Writing</span>
-                                                    @endif
-                                                </div>
-                                                <p class="card-text"><small class="text-body-secondary">Last updated {{ $module->updated_at->diffForHumans() }}</small></p>
-                                                <p class="card-text"><small class="text-body-secondary">Author: {{ $module->author_name }}</small></p>
+                                              
+                                                <p class="card-text m-0"><small class="text-body-secondary">Last updated {{ $module->updated_at->diffForHumans() }}</small></p>
+                                                <p class="card-text m-0"><small class="text-body-secondary">Author: {{ $module->author_name }}</small></p>
                                             </div>
                                         </div>
                                     </div>

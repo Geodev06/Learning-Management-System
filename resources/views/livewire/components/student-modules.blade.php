@@ -30,22 +30,7 @@
                 <p><b>{{ ucfirst($module->title) }}</b></p>
                 <p class="card-text text-ellipsis">{{ ucfirst($module->overview) }}</p>
 
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex">
-                        @if($module->v_flag)
-                        <span class="badge badge-success p-1 mx-1">Visual</span>
-                        @endif
-                        @if($module->k_flag)
-                        <span class="badge badge-info p-1 mx-1">Kinesthetic</span>
-                        @endif
-                        @if($module->a_flag)
-                        <span class="badge badge-danger p-1 mx-1">Auditory</span>
-                        @endif
-                        @if($module->r_flag)
-                        <span class="badge badge-dark p-1 mx-1">Reading and Writing</span>
-                        @endif
-                    </div>
-                </div>
+              
 
             </div>
             <button type="button" class="btn btn-primary btn-rounded" wire:click="redirect_learn('{{ encrypt($module->id) }}')">Learn <i class="fa fa-arrow-circle-right float-end"></i>

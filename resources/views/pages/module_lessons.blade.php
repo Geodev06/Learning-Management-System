@@ -116,8 +116,6 @@
                                                                             <option value="" disabled>No organizations available</option>
                                                                             @endforelse
                                                                         </select>
-
-
                                                                     </div>
 
                                                                     <button type="button"

@@ -21,12 +21,12 @@
     </style>
 
     <div class="col-lg-4">
-        
+
     </div>
     <div class="col-lg-4">
 
     </div>
-    
+
     <div class="col-lg-4">
         <form class="forms-sample material-form">
             <div class="form-group">
@@ -39,32 +39,16 @@
     <div class="col-sm-12 col-lg-3 col-md-3 mb-4">
         <div class="card h-100 p-3 shadow-sm border-0 hover-card" wire:click="redirect_view('{{ encrypt($module->id) }}')">
             <div class="card-body d-flex flex-column">
-                <h5 class="card-title mb-2 text-primary font-weight-bold">{{ ucwords($module->title) }}</h5>
-                <p class="card-text text-muted text-truncate" style="max-height: 50px;">{{ ucfirst($module->overview) }}</p>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title mb-2 text-primary font-weight-bold">{{ ucwords($module->title) }}</h5>
+                        <p class="card-text text-muted text-truncate" style="max-height: 50px;">{{ ucfirst($module->overview) }}</p>
+                    </div>
 
-                <!-- Badge Section with Conditional Rendering -->
-                <div class="ul mb-3">
-                    @if($module->v_flag)
-                    <div class="li">
-                        <span class="badge badge-info p-1 mx-1">Visual</span>
-                    </div>
-                    @endif
-                    @if($module->k_flag)
-                    <div class="li">
-                        <span class="badge badge-success p-1 mx-1">Kinesthetic</span>
-                    </div>
-                    @endif
-                    @if($module->a_flag)
-                    <div class="li">
-                        <span class="badge badge-warning p-1 mx-1">Auditory</span>
-                    </div>
-                    @endif
-                    @if($module->r_flag)
-                    <div class="li">
-                        <span class="badge badge-danger p-1 mx-1">Reading and Writing</span>
-                    </div>
-                    @endif
+                    <img src="{{ asset('assets/images/book.png') }}" style="max-height: 80px; max-width: 80px;" alt="x" srcset="">
+
                 </div>
+
 
                 <!-- Author Information -->
                 <div class="mt-auto font-12 text-muted font-italic text-truncate" style="max-height: 30px;">
