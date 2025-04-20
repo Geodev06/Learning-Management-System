@@ -13,6 +13,8 @@ class LessonPreview extends Component
 {
 
     public $module_id, $lesson_id;
+    public $selected_ide;
+
 
     public $has_mc = false;
     public $has_e = false;
@@ -25,12 +27,14 @@ class LessonPreview extends Component
         $this->redirect(route('module_assessment', ['module_id' => $module_id, 'lesson_id' => $lesson_id, 'type' => $type]));
     }
 
+  
+
     public function mount($module_id, $lesson_id)
     {
         $this->module_id = $module_id;
         $this->lesson_id = $lesson_id;
 
-        if(Assessment::where([
+        if (Assessment::where([
             'module_id' => $module_id,
             'lesson_id' => $lesson_id,
             'type' => 'MC',
@@ -41,7 +45,7 @@ class LessonPreview extends Component
             $this->has_mc = true;
         }
 
-        if(Assessment::where([
+        if (Assessment::where([
             'module_id' => $module_id,
             'lesson_id' => $lesson_id,
             'type' => 'I',
@@ -52,7 +56,7 @@ class LessonPreview extends Component
             $this->has_i = true;
         }
 
-        if(Assessment::where([
+        if (Assessment::where([
             'module_id' => $module_id,
             'lesson_id' => $lesson_id,
             'type' => 'E',
@@ -63,7 +67,7 @@ class LessonPreview extends Component
             $this->has_e = true;
         }
 
-        if(Assessment::where([
+        if (Assessment::where([
             'module_id' => $module_id,
             'lesson_id' => $lesson_id,
             'type' => 'HO',
@@ -73,8 +77,6 @@ class LessonPreview extends Component
 
             $this->has_ho = true;
         }
-       
-
     }
     public function render()
     {

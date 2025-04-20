@@ -28,9 +28,8 @@
             </div>
             @forelse($files as $file)
             <div class="col-sm-12 col-md-6 col-lg-3 mb-2">
-                <div class="card h-100 cursor-pointer border"
-                    wire:click="$dispatch('render-file', { payload: '{{ $file->file_path }}', type: '{{ $file->file_type }}' })">
-                    <div class="card-body">
+                <div class="card h-100 cursor-pointer border">
+                    <div class="card-body" wire:click="$dispatch('render-file', { payload: '{{ $file->file_path }}', type: '{{ $file->file_type }}' })">
                         @if($file->file_type == 'PDF')
                         <i class="fa fa-file-pdf-o text-danger"></i>
                         <p class="m-0"><b>{{ $file->orig_file_name ?? ''  }}</b></p>
@@ -77,6 +76,12 @@
 
 
                     </div>
+                    @if(Auth::user()->role == 'ADMIN')
+                    <div class="card-body">
+                        <button class="btn btn-lg btn-danger text-white" wire:click="$dispatch('delete-file', { id: '{{ $file->id }}', name: '{{ $file->orig_file_name }}' })">DELETE</button>
+                    </div>
+                    @endif
+
 
                 </div>
             </div>
@@ -90,6 +95,12 @@
             <div class="content">
             </div>
             <button class="btn btn-md text-white btn-primary" type="button" id="btn-dl">Download File</button>
+        </x-modal>
+
+        <x-modal id="delete_file" size="modal-md" title="Delete Material">
+            <p>Are you sure you want to delete this learning material</p>
+            <p class="item-name"></p>
+            <button class="btn btn-lg text-white btn-danger" type="button" id="btn-delete">Delete</button>
         </x-modal>
 
         @script
@@ -191,6 +202,19 @@
 
 
                 $('#modal_preview').modal('show')
+            })
+
+            $wire.on('delete-file', (payload) => {
+
+                $('.item-name').text('')
+                $('.item-name').text(payload.name)
+                $('#delete_file').modal('show')
+                $('#btn-delete').attr('wire:click', "delete_item(" + payload.id + ")")
+            })
+
+            $wire.on('close_modal', (payload) => {
+
+                $('#delete_file').modal('hide')
             })
         </script>
         @endscript

@@ -31,7 +31,19 @@
 
                 @if($type == 'HO')
 
-                <x-pythoncompiler />
+                <div class="col-lg-12">
+                    <p>Choose Environment</p>
+                </div>
+                <div class="d-flex">
+                    <a class="mx-2 btn btn-md btn-primary text-white" target="_blank" href="{{ route('ide', encrypt('python') ) }}">Python</a>
+                    <a class="mx-2 btn btn-md btn-primary text-white" target="_blank" href="{{ route('ide', encrypt('js') ) }}">JS</a>
+                    <a class="mx-2 btn btn-md btn-primary text-white" target="_blank" href="{{ route('ide', encrypt('c#') ) }}">C#</a>
+                    <a class="mx-2 btn btn-md btn-primary text-white" target="_blank" href="{{ route('ide', encrypt('java') ) }}">Java</a>
+                    <a class="mx-2 btn btn-md btn-primary text-white" target="_blank" href="{{ route('ide', encrypt('php') ) }}">PHP</a>
+                    <a class="mx-2 btn btn-md btn-primary text-white" target="_blank" href="{{ route('ide', encrypt('sqlite') ) }}">SQLite</a>
+
+
+                </div>
 
                 @endif
 

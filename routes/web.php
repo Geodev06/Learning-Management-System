@@ -10,6 +10,7 @@ use App\Http\Controllers\DatatableController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\GuestController;
+use App\Http\Controllers\IDEController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PageController;
@@ -176,4 +177,9 @@ Route::controller(EmailController::class)->middleware('auth')->group(function ()
     Route::post('/email/verification-notification', 'resend')
         ->middleware('throttle:3,1')
         ->name('verification.send');
+});
+
+
+Route::controller(IDEController::class)->middleware('auth', 'verified')->group(function () {
+    Route::get('/IDE/{ide}', 'index')->name('ide');
 });
