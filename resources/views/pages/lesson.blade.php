@@ -37,30 +37,32 @@
                             <div class="home-tab">
                                 <div class="d-sm-flex align-items-center justify-content-between border-bottom">
                                     <ul class="nav nav-tabs" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link active ps-0" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-selected="false">Overview</a>
-                                        </li>
+
 
                                         <li class="nav-item">
-                                            <a class="nav-link" id="home-tab" data-bs-toggle="tab" href="#attachments" role="tab" aria-controls="overview" aria-selected="true">Attachments</a>
+                                            <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#attachments" role="tab" aria-controls="overview" aria-selected="true">Attachments</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#activities" role="tab" aria-selected="false">Activities</a>
                                         </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link " id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab" aria-selected="false">Submissions</a>
+                                        </li>
                                     </ul>
                                 </div>
                                 <div class="tab-content tab-content-basic">
-                                    <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
+                                    <div class="tab-pane fade show " id="overview" role="tabpanel" aria-labelledby="overview">
                                         <div class="row">
                                             <div class="col-lg-12 ">
                                                 <x-tablesubmissionlesson :id="$module->id" :lesson="$lesson->id" />
                                             </div>
 
-                                           
+
                                         </div>
                                     </div>
 
-                                    <div class="tab-pane fade show " id="attachments" role="tabpanel" aria-labelledby="attachments">
+                                    <div class="tab-pane fade show active" id="attachments" role="tabpanel" aria-labelledby="attachments">
                                         <div class="row">
                                             <div class="col-lg-12 ">
                                                 <button class="btn btn-sm btn-default float-start" id="btn_add"
@@ -105,7 +107,9 @@
                         <option value="PDF">PDF</option>
                         <option value="LINK">LINK</option>
                         <option value="PPT">PPT</option>
+                        <option value="AUDIO">AUDIO</option>
                         <option value="VIDEO">VIDEO</option>
+                        <option value="IMAGES">IMAGES</option>
                         <option value="OTHER">OTHER</option>
                     </select>
                 </div>
@@ -123,7 +127,7 @@
                 <div class="form-group file-input">
 
                     <label for="input" class="control-label">File</label><i class="bar"></i>
-                    <input type="file" name="file" accept=".pdf" class="file-input @if ($errors->has('file')) text-danger @else text-primary @endif form-control" autocomplete="off">
+                    <input type="file" name="file[]" accept=".pdf" multiple class="file-input @if ($errors->has('file')) text-danger @else text-primary @endif form-control" autocomplete="off">
                     <div class="file-error text-danger font-12"></div>
 
                 </div>
@@ -164,14 +168,32 @@
             // Handle the file input's accept attribute based on the selected type
             if (selectedType === 'PDF') {
                 $('.file-input').attr('accept', '.pdf'); // Accept only PDF files
+                $('.file-input').attr('multiple', 'true'); // Accept only PDF files
+                $('.file-input').attr('name', 'file[]'); // Accept only PDF files
+
+
             } else if (selectedType === 'OTHER') {
                 $('.file-input').removeAttr('accept'); // Remove file type restrictions for 'OTHER'
             } else {
                 $('.file-input').removeAttr('accept'); // Remove file type restrictions for other types
+                $('.file-input').removeAttr('multiple'); // Accept only PDF files
+                $('.file-input').attr('name', 'file'); // Accept only PDF files
+            }
+
+            if (selectedType === 'VIDEO' || selectedType === 'PDF') {
+                $('.file-input').attr('multiple', 'true'); // Accept only PDF files
+                $('.file-input').attr('name', 'file[]'); // Accept only PDF files
+            } else {
+                $('.file-input').removeAttr('multiple'); // Accept only PDF files
+                $('.file-input').attr('name', 'file'); // Accept only PDF files
             }
 
             // Show/hide the file input and text input based on the selected type
-            if (selectedType === 'PDF' || selectedType === 'OTHER' || selectedType === 'VIDEO') {
+            if (selectedType === 'PDF' ||
+                selectedType === 'OTHER' ||
+                selectedType === 'VIDEO' ||
+                selectedType === 'AUDIO' ||
+                selectedType === 'IMAGES') {
                 $('.file-input').show(); // Show file input
                 $('.text-input').hide(); // Hide text input
             } else {
@@ -229,7 +251,7 @@
                     $('.ERROR').text(xhr.responseJSON.message);
 
                     if (xhr.status == 413) {
-                        $('.file-error').text(xhr.statusText + " Max. of 5MB. for PDF files and 10MB. for Compressed files and Videos.");
+                        $('.file-error').text(xhr.statusText + " Max. of 40MB. per request.");
                     }
 
                     if (xhr.status == 422) {
@@ -243,7 +265,7 @@
                         });
                     }
 
-                
+
                     stop_loading()
 
                 }

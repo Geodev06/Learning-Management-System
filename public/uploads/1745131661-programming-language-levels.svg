@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8f9fa" rx="10" ry="10"/>
+  
+  <!-- Title -->
+  <rect x="50" y="30" width="700" height="60" fill="#2c3e50" rx="8" ry="8"/>
+  <text x="400" y="70" font-family="Arial" font-size="28" font-weight="bold" text-anchor="middle" fill="white">Programming Language Levels</text>
+  
+  <!-- Main Visual - Pyramid -->
+  <polygon points="400,120 150,470 650,470" fill="#ecf0f1" stroke="#34495e" stroke-width="2"/>
+  
+  <!-- Dividing Lines -->
+  <line x1="150" y1="470" x2="650" y2="470" stroke="#34495e" stroke-width="2"/>
+  <line x1="230" y1="353" x2="570" y2="353" stroke="#34495e" stroke-width="2" stroke-dasharray="5,5"/>
+  <line x1="317" y1="237" x2="483" y2="237" stroke="#34495e" stroke-width="2" stroke-dasharray="5,5"/>
+  
+  <!-- Language Levels -->
+  <!-- Low Level -->
+  <rect x="230" y="380" width="340" height="80" fill="#e74c3c" rx="5" ry="5" opacity="0.9"/>
+  <text x="400" y="410" font-family="Arial" font-size="22" font-weight="bold" text-anchor="middle" fill="white">Low-Level Languages</text>
+  <text x="400" y="440" font-family="Arial" font-size="14" text-anchor="middle" fill="white">Closer to machine, harder for humans</text>
+  
+  <!-- Middle Level -->
+  <rect x="260" y="265" width="280" height="80" fill="#f39c12" rx="5" ry="5" opacity="0.9"/>
+  <text x="400" y="295" font-family="Arial" font-size="22" font-weight="bold" text-anchor="middle" fill="white">Middle-Level Languages</text>
+  <text x="400" y="325" font-family="Arial" font-size="14" text-anchor="middle" fill="white">Balance of machine and human readability</text>
+  
+  <!-- High Level -->
+  <rect x="290" y="150" width="220" height="80" fill="#2ecc71" rx="5" ry="5" opacity="0.9"/>
+  <text x="400" y="180" font-family="Arial" font-size="22" font-weight="bold" text-anchor="middle" fill="white">High-Level Languages</text>
+  <text x="400" y="210" font-family="Arial" font-size="14" text-anchor="middle" fill="white">Closer to humans, easier to program</text>
+  
+  <!-- Language Details -->
+  <!-- Low Level Languages -->
+  <rect x="50" y="480" width="330" height="100" fill="white" stroke="#e74c3c" stroke-width="2" rx="8" ry="8"/>
+  <text x="60" y="500" font-family="Arial" font-size="18" font-weight="bold" fill="#e74c3c">Machine Language</text>
+  <text x="60" y="525" font-family="Arial" font-size="14" fill="#555">
+    <tspan x="60" dy="0">• Binary code (0s and 1s)</tspan>
+    <tspan x="60" dy="20">• Directly understood by computers</tspan>
+    <tspan x="60" dy="20">• Example: 10010001 (Addition)</tspan>
+  </text>
+  
+  <rect x="420" y="480" width="330" height="100" fill="white" stroke="#e74c3c" stroke-width="2" rx="8" ry="8"/>
+  <text x="430" y="500" font-family="Arial" font-size="18" font-weight="bold" fill="#e74c3c">Assembly Language</text>
+  <text x="430" y="525" font-family="Arial" font-size="14" fill="#555">
+    <tspan x="430" dy="0">• Uses English-like mnemonics (ADD, MOV)</tspan>
+    <tspan x="430" dy="20">• Requires an assembler to translate</tspan>
+    <tspan x="430" dy="20">• Example: MOV AH, 02H</tspan>
+  </text>
+  
+  <!-- Middle Level Languages -->
+  <rect x="50" y="350" width="160" height="120" fill="white" stroke="#f39c12" stroke-width="2" rx="8" ry="8"/>
+  <text x="130" y="370" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#f39c12">Examples</text>
+  <text x="130" y="395" font-family="Arial" font-size="14" text-anchor="middle" fill="#555">
+    <tspan x="130" dy="0">• C</tspan>
+    <tspan x="130" dy="20">• IBM PL/S</tspan>
+    <tspan x="130" dy="20">• BCPL</tspan>
+    <tspan x="130" dy="20">• BLISS</tspan>
+  </text>
+  
+  <rect x="590" y="350" width="160" height="120" fill="white" stroke="#f39c12" stroke-width="2" rx="8" ry="8"/>
+  <text x="670" y="370" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#f39c12">Characteristics</text>
+  <text x="670" y="395" font-family="Arial" font-size="14" text-anchor="middle" fill="#555">
+    <tspan x="670" dy="0">• Features of both levels</tspan>
+    <tspan x="670" dy="20">• Access to hardware</tspan>
+    <tspan x="670" dy="20">• Reasonable syntax</tspan>
+    <tspan x="670" dy="20">• Medium execution speed</tspan>
+  </text>
+  
+  <!-- High Level Languages -->
+  <rect x="50" y="230" width="160" height="110" fill="white" stroke="#2ecc71" stroke-width="2" rx="8" ry="8"/>
+  <text x="130" y="250" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#2ecc71">Examples</text>
+  <text x="130" y="275" font-family="Arial" font-size="14" text-anchor="middle" fill="#555">
+    <tspan x="130" dy="0">• Python</tspan>
+    <tspan x="130" dy="20">• Java</tspan>
+    <tspan x="130" dy="20">• C++</tspan>
+    <tspan x="130" dy="20">• PHP</tspan>
+  </text>
+  
+  <rect x="590" y="230" width="160" height="110" fill="white" stroke="#2ecc71" stroke-width="2" rx="8" ry="8"/>
+  <text x="670" y="250" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#2ecc71">Characteristics</text>
+  <text x="670" y="275" font-family="Arial" font-size="14" text-anchor="middle" fill="#555">
+    <tspan x="670" dy="0">• English-like syntax</tspan>
+    <tspan x="670" dy="20">• Easy to learn and use</tspan>
+    <tspan x="670" dy="20">• Portable across systems</tspan>
+    <tspan x="670" dy="20">• Slower execution</tspan>
+  </text>
+  
+  <!-- Arrows -->
+  <path d="M220,320 L240,320 L230,340 Z" fill="#f39c12"/>
+  <path d="M580,320 L560,320 L570,340 Z" fill="#f39c12"/>
+  <path d="M220,200 L240,200 L230,220 Z" fill="#2ecc71"/>
+  <path d="M580,200 L560,200 L570,220 Z" fill="#2ecc71"/>
+  <path d="M220,420 L240,420 L230,440 Z" fill="#e74c3c"/>
+  <path d="M580,420 L560,420 L570,440 Z" fill="#e74c3c"/>
+  
+  <!-- Human vs Computer Labels -->
+  <text x="150" y="130" font-family="Arial" font-size="16" font-weight="bold" fill="#2c3e50">Human-Oriented</text>
+  <text x="650" y="130" font-family="Arial" font-size="16" font-weight="bold" text-anchor="end" fill="#2c3e50">Machine-Oriented</text>
+  
+  <!-- Execution Speed Labels -->
+  <text x="70" y="460" font-family="Arial" font-size="14" font-style="italic" fill="#555">Faster Execution</text>
+  <text x="730" y="460" font-family="Arial" font-size="14" font-style="italic" text-anchor="end" fill="#555">Slower Execution</text>
+</svg>
